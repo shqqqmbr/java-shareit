@@ -5,8 +5,6 @@ import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.practicum.shareit.request.ItemRequest;
-import ru.practicum.shareit.user.User;
 
 /**
  * TODO Sprint add-controllers.
@@ -20,7 +18,7 @@ public class Item {
     private int id;
     private String name;
     private String description;
-    private boolean available;
-    private User owner;
-    private ItemRequest request;
+    private Boolean available;
+    private Integer owner;
+    private Integer request;
 }
