@@ -11,10 +11,10 @@ public class ItemMapper implements RowMapper<ItemDto> {
     @Override
     public ItemDto mapRow(ResultSet rs, int rowNum) throws SQLException {
         ItemDto dto = new ItemDto();
+        dto.setId(rs.getInt("id"));
         dto.setName(rs.getString("name"));
         dto.setDescription(rs.getString("description"));
         dto.setAvailable(rs.getBoolean("available"));
-        dto.setRequest(rs.getInt("request"));
         return dto;
     }
 }

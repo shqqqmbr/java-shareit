@@ -27,13 +27,13 @@ public class UserService {
         existsByEmail(user.getEmail());
         String sql = "INSERT INTO users (name, email) VALUES (?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(con ->  {
+        jdbcTemplate.update(con -> {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, user.getName());
             ps.setString(2, user.getEmail());
             return ps;
         }, keyHolder);
-        if(keyHolder.getKey()!=null){
+        if (keyHolder.getKey() != null) {
             user.setId(keyHolder.getKey().intValue());
         } else {
             throw new RuntimeException("Не удалось получить сгенерированный ID");
@@ -70,13 +70,13 @@ public class UserService {
         jdbcTemplate.update(sql, id);
     }
 
-    public User getUser(int id){
+    public User getUser(int id) {
         checkUserPresence(id);
         String sql = "SELECT * FROM users WHERE id = ?";
         return jdbcTemplate.queryForObject(sql, new UserMapper(), id);
     }
 
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         String sql = "SELECT * FROM users";
         return jdbcTemplate.query(sql, new UserMapper());
     }
