@@ -1,10 +1,10 @@
-package ru.practicum.shareit.item;
+package ru.practicum.shareit.item.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.item.dto.ItemDto;
-import ru.practicum.shareit.item.model.Item;
+import ru.practicum.shareit.item.storage.ItemStorage;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class ItemController {
     }
 
     @PatchMapping("/{id}")
-    public ItemDto updateItem(@PathVariable @Valid int id, @RequestBody  ItemDto item, @RequestHeader("X-Sharer-User-Id") int ownerId) {
+    public ItemDto updateItem(@PathVariable @Valid int id, @RequestBody ItemDto item, @RequestHeader("X-Sharer-User-Id") int ownerId) {
         return storage.updateItem(id, item, ownerId);
     }
 
@@ -42,7 +42,7 @@ public class ItemController {
     }
 
     @GetMapping("/search")
-    public List<ItemDto> getItemsByText(@RequestParam String text, @RequestHeader("X-Sharer-User-Id") int ownerId) {
-        return storage.getItemsByText(text, ownerId);
+    public List<ItemDto> getItemsByText(@RequestParam String text) {
+        return storage.getItemsByText(text);
     }
 }

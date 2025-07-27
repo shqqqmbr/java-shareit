@@ -16,4 +16,6 @@ public class ItemDto {
     private String description;
     @NotNull(message = "Availability status is required")
     private Boolean available;
+    @NotNull
+    private int owner;
 }

@@ -1,14 +1,16 @@
-package ru.practicum.shareit.user;
+package ru.practicum.shareit.user.storage;
 
 import org.springframework.stereotype.Repository;
+import ru.practicum.shareit.user.model.User;
+import ru.practicum.shareit.user.service.UserService;
 
 import java.util.List;
 
 @Repository
-public class UserDbStorage implements UserStorage {
+public class UserStorageImpl implements UserStorage {
     private final UserService service;
 
-    public UserDbStorage(UserService service) {
+    public UserStorageImpl(UserService service) {
         this.service = service;
     }
 

@@ -1,4 +1,4 @@
-package ru.practicum.shareit.item;
+package ru.practicum.shareit.item.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,14 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.mapper.ItemMapper;
-import ru.practicum.shareit.item.model.Item;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ItemService {
@@ -32,13 +30,14 @@ public class ItemService {
         if (item.getName() == null || item.getName().isEmpty()) {
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
-        String sql = "INSERT INTO items (name, description, available)  VALUES (?, ?, ?)";
+        String sql = "INSERT INTO items (name, description, available, owner)  VALUES (?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(con -> {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, item.getName());
             ps.setString(2, item.getDescription());
             ps.setBoolean(3, item.getAvailable());
+            ps.setInt(4, ownerId);
             return ps;
         }, keyHolder);
         if (keyHolder.getKey() != null) {
@@ -85,23 +84,20 @@ public class ItemService {
 
     public List<ItemDto> getAllUserItems(int ownerId) {
         checkUserPresence(ownerId);
-        String sql = "SELECT id, name, description, available FROM items WHERE owner = ?";
+        String sql = "SELECT id, name, description, available    FROM items WHERE owner = ?";
         return jdbcTemplate.query(sql, new ItemMapper(), ownerId);
     }
 
-    public List<ItemDto> getItemsByText(String text, int ownerId) {
-        checkUserPresence(ownerId);
-        if (text == null && text.isBlank()) {
+    public List<ItemDto> getItemsByText(String text) {
+        if (text == null || text.isBlank()) {
             return Collections.emptyList();
         }
         String sql = """
-                SELECT id, name, description, available 
-                FROM items 
-                WHERE (LOWER(name) LIKE LOWER(?) 
-                   OR LOWER(description) LIKE LOWER(?))
-                AND owner = ?
+                SELECT * FROM items
+                WHERE available = true
+                  AND (LOWER(name) LIKE LOWER(?) OR LOWER(description) LIKE LOWER(?))
                 """;
-        return jdbcTemplate.query(sql, new ItemMapper(), text, text, ownerId);
+        return jdbcTemplate.query(sql, new ItemMapper(), text, text);
     }
 
     private void checkUserPresence(int id) {

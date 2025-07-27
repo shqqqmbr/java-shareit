@@ -1,16 +1,16 @@
-package ru.practicum.shareit.item;
+package ru.practicum.shareit.item.storage;
 
 import org.springframework.stereotype.Repository;
 import ru.practicum.shareit.item.dto.ItemDto;
-import ru.practicum.shareit.item.model.Item;
+import ru.practicum.shareit.item.service.ItemService;
 
 import java.util.List;
 
 @Repository
-public class ItemDbStorage implements ItemStorage {
+public class ItemStorageImpl implements ItemStorage {
     private final ItemService service;
 
-    public ItemDbStorage(ItemService service) {
+    public ItemStorageImpl(ItemService service) {
         this.service = service;
     }
 
@@ -35,7 +35,7 @@ public class ItemDbStorage implements ItemStorage {
     }
 
     @Override
-    public List<ItemDto> getItemsByText(String text, int ownerId) {
-        return service.getItemsByText(text, ownerId);
+    public List<ItemDto> getItemsByText(String text) {
+        return service.getItemsByText(text);
     }
 }
