@@ -15,8 +15,8 @@ public class UserStorageImpl implements UserStorage {
     private final Map<Integer, User> users = new HashMap<>();
     private final AtomicInteger idGenerator = new AtomicInteger(1);
 
-    public void checkUserExists(int id){
-        if(!users.containsKey(id)){
+    public void checkUserExists(int id) {
+        if (!users.containsKey(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }

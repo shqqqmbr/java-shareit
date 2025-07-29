@@ -11,6 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ItemService {
     private final ItemStorage storage;
+
     public ItemDto addItem(ItemDto itemDto, int ownerId) {
         return storage.addItem(itemDto, ownerId);
     }
