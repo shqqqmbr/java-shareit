@@ -1,5 +1,6 @@
 package ru.practicum.shareit.item.storage;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.server.ResponseStatusException;
@@ -13,10 +14,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Repository
+@RequiredArgsConstructor
 public class ItemStorageImpl implements ItemStorage {
     private final Map<Integer, ItemDto> items = new HashMap<>();
     private final AtomicInteger idGenerator = new AtomicInteger(1);
-    private final UserStorageImpl storage = new UserStorageImpl();
+    private final UserStorageImpl storage;
 
     @Override
     public ItemDto addItem(ItemDto itemDto, int ownerId) {
@@ -30,9 +32,10 @@ public class ItemStorageImpl implements ItemStorage {
 
     @Override
     public ItemDto updateItem(int itemId, ItemDto itemDto, int ownerId) {
+        storage.checkUserExists(ownerId);
         ItemDto existingItem = getItemOrThrow(itemId);
         if (existingItem.getOwner() != ownerId) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User with ID " + ownerId + " is not the owner of item " + itemId);
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Редактирование чужой вещи запрещено");
         }
         if (itemDto.getName() != null) {
             existingItem.setName(itemDto.getName());
@@ -43,6 +46,7 @@ public class ItemStorageImpl implements ItemStorage {
         if (itemDto.getAvailable() != null) {
             existingItem.setAvailable(itemDto.getAvailable());
         }
+        existingItem.setId(itemId);
         return existingItem;
     }
 
