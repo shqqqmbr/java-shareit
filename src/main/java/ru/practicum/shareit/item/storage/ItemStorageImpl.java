@@ -1,9 +1,10 @@
 package ru.practicum.shareit.item.storage;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.server.ResponseStatusException;
+import ru.practicum.shareit.exception.BadRequestException;
+import ru.practicum.shareit.exception.ForbiddenException;
+import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.user.storage.UserStorageImpl;
 
@@ -35,7 +36,7 @@ public class ItemStorageImpl implements ItemStorage {
         storage.checkUserExists(ownerId);
         ItemDto existingItem = getItemOrThrow(itemId);
         if (existingItem.getOwner() != ownerId) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Редактирование чужой вещи запрещено");
+            throw new ForbiddenException("Editing someone else's property is prohibited");
         }
         if (itemDto.getName() != null) {
             existingItem.setName(itemDto.getName());
@@ -74,23 +75,23 @@ public class ItemStorageImpl implements ItemStorage {
     private ItemDto getItemOrThrow(int itemId) {
         ItemDto item = items.get(itemId);
         if (item == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item with ID " + itemId + " not found");
+            throw new NotFoundException("Item with ID " + itemId + " not found");
         }
         return item;
     }
 
     private void validateItem(ItemDto item) {
         if (item == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Item cannot be null");
+            throw new BadRequestException("Item cannot be null");
         }
         if (item.getName() == null || item.getName().isBlank()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Item name cannot be empty");
+            throw new BadRequestException("Item name cannot be empty");
         }
         if (item.getDescription() == null || item.getDescription().isBlank()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Item description cannot be empty");
+            throw new BadRequestException("Item description cannot be empty");
         }
         if (item.getAvailable() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Item availability must be specified");
+            throw new BadRequestException("Item available cannot be null");
         }
     }
 }

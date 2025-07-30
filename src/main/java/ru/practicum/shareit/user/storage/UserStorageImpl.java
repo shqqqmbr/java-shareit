@@ -1,8 +1,9 @@
 package ru.practicum.shareit.user.storage;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.server.ResponseStatusException;
+import ru.practicum.shareit.exception.BadRequestException;
+import ru.practicum.shareit.exception.ConflictException;
+import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.user.model.User;
 
 import java.util.HashMap;
@@ -17,7 +18,7 @@ public class UserStorageImpl implements UserStorage {
 
     public void checkUserExists(int id) {
         if (!users.containsKey(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new NotFoundException("User with id " + id + " not found");
         }
     }
 
@@ -32,16 +33,13 @@ public class UserStorageImpl implements UserStorage {
 
     @Override
     public User updateUser(int id, User userUpdates) {
-        User existingUser = getUserOrThrow(id);
-
+        User existingUser = getUser(id);
         if (userUpdates == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Update data cannot be null");
+            throw new BadRequestException("Update data cannot be null");
         }
-
         if (userUpdates.getName() != null) {
             existingUser.setName(userUpdates.getName());
         }
-
         if (userUpdates.getEmail() != null && !userUpdates.getEmail().equals(existingUser.getEmail())) {
             checkEmailUniqueness(userUpdates.getEmail());
             existingUser.setEmail(userUpdates.getEmail());
@@ -52,13 +50,13 @@ public class UserStorageImpl implements UserStorage {
 
     @Override
     public void deleteUser(int id) {
-        getUserOrThrow(id);
+        checkUserExists(id);
         users.remove(id);
     }
 
     @Override
     public User getUser(int id) {
-        return getUserOrThrow(id);
+        return users.get(id);
     }
 
     @Override
@@ -66,26 +64,15 @@ public class UserStorageImpl implements UserStorage {
         return List.copyOf(users.values());
     }
 
-    private User getUserOrThrow(int id) {
-        User user = users.get(id);
-        if (user == null) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "User with ID " + id + " not found"
-            );
-        }
-        return user;
-    }
-
     private void validateUser(User user) {
         if (user == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User cannot be null");
+            throw new BadRequestException("User cannot be null");
         }
         if (user.getEmail() == null || user.getEmail().isBlank()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email cannot be empty");
+            throw new BadRequestException("Email cannot be blank");
         }
         if (!user.getEmail().contains("@")) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email must contain '@'");
+            throw new BadRequestException("Email must contain '@'");
         }
     }
 
@@ -94,10 +81,7 @@ public class UserStorageImpl implements UserStorage {
                 .filter(u -> u.getEmail().equals(email))
                 .findFirst()
                 .ifPresent(u -> {
-                    throw new ResponseStatusException(
-                            HttpStatus.CONFLICT,
-                            "Email " + email + " already exists"
-                    );
+                    throw new ConflictException("User with email " + email + " already exists");
                 });
     }
 }
