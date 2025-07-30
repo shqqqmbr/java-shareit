@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import ru.practicum.shareit.exception.BadRequestException;
 import ru.practicum.shareit.exception.ForbiddenException;
 import ru.practicum.shareit.exception.NotFoundException;
-import ru.practicum.shareit.item.dto.ItemDto;
+import ru.practicum.shareit.item.model.ItemDto;
 import ru.practicum.shareit.user.storage.UserStorageImpl;
 
 import java.util.HashMap;
@@ -24,7 +24,6 @@ public class ItemStorageImpl implements ItemStorage {
     @Override
     public ItemDto addItem(ItemDto itemDto, int ownerId) {
         storage.checkUserExists(ownerId);
-        validateItem(itemDto);
         itemDto.setId(idGenerator.getAndIncrement());
         itemDto.setOwner(ownerId);
         items.put(itemDto.getId(), itemDto);
@@ -58,7 +57,9 @@ public class ItemStorageImpl implements ItemStorage {
 
     @Override
     public List<ItemDto> getAllUserItems(int ownerId) {
-        return items.values().stream().filter(item -> item.getOwner() == ownerId).collect(Collectors.toList());
+        return items.values().stream()
+                .filter(item -> item.getOwner() == ownerId)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -69,7 +70,11 @@ public class ItemStorageImpl implements ItemStorage {
 
         String searchText = text.toLowerCase();
 
-        return items.values().stream().filter(ItemDto::getAvailable).filter(item -> item.getName().toLowerCase().contains(searchText) || item.getDescription().toLowerCase().contains(searchText)).collect(Collectors.toList());
+        return items.values().stream()
+                .filter(ItemDto::getAvailable)
+                .filter(item -> item.getName().toLowerCase().contains(searchText)
+                        || item.getDescription().toLowerCase().contains(searchText))
+                .collect(Collectors.toList());
     }
 
     private ItemDto getItemOrThrow(int itemId) {
@@ -78,20 +83,5 @@ public class ItemStorageImpl implements ItemStorage {
             throw new NotFoundException("Item with ID " + itemId + " not found");
         }
         return item;
-    }
-
-    private void validateItem(ItemDto item) {
-        if (item == null) {
-            throw new BadRequestException("Item cannot be null");
-        }
-        if (item.getName() == null || item.getName().isBlank()) {
-            throw new BadRequestException("Item name cannot be empty");
-        }
-        if (item.getDescription() == null || item.getDescription().isBlank()) {
-            throw new BadRequestException("Item description cannot be empty");
-        }
-        if (item.getAvailable() == null) {
-            throw new BadRequestException("Item available cannot be null");
-        }
     }
 }

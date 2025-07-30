@@ -13,14 +13,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Item {
-    @NotNull
-    private int id;
-    @NotBlank
+    private Integer id;
     private String name;
-    @NotBlank
     private String description;
-    @NotNull
-    private boolean available;
-    @NotNull
-    private int owner;
+    private Boolean available;
+    private Integer owner;
 }

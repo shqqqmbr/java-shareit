@@ -1,8 +1,8 @@
-package ru.practicum.shareit.item.service;
+package ru.practicum.shareit.item;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.practicum.shareit.item.dto.ItemDto;
+import ru.practicum.shareit.item.model.ItemDto;
 import ru.practicum.shareit.item.storage.ItemStorage;
 
 import java.util.List;

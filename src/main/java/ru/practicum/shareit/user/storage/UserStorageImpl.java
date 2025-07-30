@@ -1,20 +1,25 @@
 package ru.practicum.shareit.user.storage;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.practicum.shareit.exception.BadRequestException;
 import ru.practicum.shareit.exception.ConflictException;
 import ru.practicum.shareit.exception.NotFoundException;
+import ru.practicum.shareit.user.UserMapper;
 import ru.practicum.shareit.user.model.User;
+import ru.practicum.shareit.user.model.UserDto;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Repository
+@RequiredArgsConstructor
 public class UserStorageImpl implements UserStorage {
     private final Map<Integer, User> users = new HashMap<>();
+    private final Set<String> emails = new HashSet<>();
     private final AtomicInteger idGenerator = new AtomicInteger(1);
+    private final UserMapper userMapper;
 
     public void checkUserExists(int id) {
         if (!users.containsKey(id)) {
@@ -23,17 +28,18 @@ public class UserStorageImpl implements UserStorage {
     }
 
     @Override
-    public User addUser(User user) {
-        validateUser(user);
+    public UserDto addUser(UserDto user) {
         checkEmailUniqueness(user.getEmail());
         user.setId(idGenerator.getAndIncrement());
-        users.put(user.getId(), user);
+        users.put(user.getId(), userMapper.toEntity(user));
+        emails.add(user.getEmail());
         return user;
     }
 
     @Override
-    public User updateUser(int id, User userUpdates) {
-        User existingUser = getUser(id);
+    public UserDto updateUser(int id, UserDto userUpdates) {
+        checkUserExists(id);
+        User existingUser = userMapper.toEntity(getUser(id));
         if (userUpdates == null) {
             throw new BadRequestException("Update data cannot be null");
         }
@@ -44,44 +50,31 @@ public class UserStorageImpl implements UserStorage {
             checkEmailUniqueness(userUpdates.getEmail());
             existingUser.setEmail(userUpdates.getEmail());
         }
-
-        return existingUser;
+        return userMapper.toDto(existingUser);
     }
 
     @Override
     public void deleteUser(int id) {
         checkUserExists(id);
         users.remove(id);
+        emails.remove(users.get(id).getEmail());
     }
 
     @Override
-    public User getUser(int id) {
-        return users.get(id);
+    public UserDto getUser(int id) {
+        return userMapper.toDto(users.get(id));
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return List.copyOf(users.values());
-    }
-
-    private void validateUser(User user) {
-        if (user == null) {
-            throw new BadRequestException("User cannot be null");
-        }
-        if (user.getEmail() == null || user.getEmail().isBlank()) {
-            throw new BadRequestException("Email cannot be blank");
-        }
-        if (!user.getEmail().contains("@")) {
-            throw new BadRequestException("Email must contain '@'");
-        }
+    public List<UserDto> getAllUsers() {
+        return users.values().stream()
+                .map(userMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     private void checkEmailUniqueness(String email) {
-        users.values().stream()
-                .filter(u -> u.getEmail().equals(email))
-                .findFirst()
-                .ifPresent(u -> {
-                    throw new ConflictException("User with email " + email + " already exists");
-                });
+        if (!emails.contains(email)) {
+            throw new ConflictException("User with email " + email + " already exists");
+        }
     }
 }
