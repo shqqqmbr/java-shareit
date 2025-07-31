@@ -1,9 +1,7 @@
 package ru.practicum.shareit.user;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-import ru.practicum.shareit.user.model.User;
+import ru.practicum.shareit.user.model.UserDto;
 import ru.practicum.shareit.user.storage.UserStorage;
 
 import java.util.List;
@@ -16,51 +14,23 @@ public class UserService {
         this.userStorage = userStorage;
     }
 
-    public User createUser(User user) {
-        validateUser(user);
+    public UserDto createUser(UserDto user) {
         return userStorage.addUser(user);
     }
 
-    public User updateUser(int userId, User userUpdates) {
-        if (userUpdates == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Update data cannot be null");
-        }
-
-        User updatedUser = userStorage.updateUser(userId, userUpdates);
-        if (updatedUser == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with ID " + userId + " not found");
-        }
-        return updatedUser;
+    public UserDto updateUser(int userId, UserDto userUpdates) {
+        return userStorage.updateUser(userId, userUpdates);
     }
 
-    public User getUserById(int userId) {
-        User user = userStorage.getUser(userId);
-        if (user == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with ID " + userId + " not found");
-        }
-        return user;
+    public UserDto getUserById(int userId) {
+        return userStorage.getUser(userId);
     }
 
-    public List<User> getAllUsers() {
+    public List<UserDto> getAllUsers() {
         return userStorage.getAllUsers();
     }
 
     public void deleteUser(int userId) {
         userStorage.deleteUser(userId);
-    }
-
-    private void validateUser(User user) {
-        if (user == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User cannot be null");
-        }
-        if (user.getEmail() == null || user.getEmail().isBlank()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email cannot be empty");
-        }
-        if (!user.getEmail().contains("@")) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email must contain '@'");
-        }
-        if (user.getName() == null || user.getName().isBlank()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Name cannot be empty");
-        }
     }
 }

@@ -2,8 +2,6 @@ package ru.practicum.shareit.item.storage;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import ru.practicum.shareit.exception.BadRequestException;
-import ru.practicum.shareit.exception.ForbiddenException;
 import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.item.ItemMapper;
 import ru.practicum.shareit.item.model.Item;
@@ -36,7 +34,8 @@ public class ItemStorageImpl implements ItemStorage {
     @Override
     public ItemDto updateItem(int itemId, ItemDto itemDto, int ownerId) {
         storage.checkUserExists(ownerId);
-        items.put(itemId, mapper.toEntity(itemDto));
+        itemDto.setId(itemId);
+        mapper.updateItemFromDto(itemDto, items.get(itemId));
         return itemDto;
     }
 
