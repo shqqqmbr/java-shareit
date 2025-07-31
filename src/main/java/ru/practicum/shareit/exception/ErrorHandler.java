@@ -9,25 +9,25 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ErrorHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleNotFoundException(final NotFoundException e) {
-        return new ErrorResponse("Объект не найден", e.getMessage());
+    public ErrorResponse handleNotFoundException(final NotFoundException exception) {
+        return new ErrorResponse("Объект не найден", exception.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleBadRequestException(final BadRequestException e) {
-        return new ErrorResponse("Некорректный запрос", e.getMessage());
+    public ErrorResponse handleBadRequestException(final BadRequestException exception) {
+        return new ErrorResponse("Некорректный запрос", exception.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ErrorResponse handleForbiddenException(final ForbiddenException e) {
-        return new ErrorResponse("Недопустимый запрос", e.getMessage());
+    public ErrorResponse handleForbiddenException(final ForbiddenException exception) {
+        return new ErrorResponse("Недопустимый запрос", exception.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse handleConflictException(final ConflictException e) {
-        return new ErrorResponse("Ресурс уже сущесвтует", e.getMessage());
+    public ErrorResponse handleConflictException(final ConflictException exception) {
+        return new ErrorResponse("Ресурс уже сущесвтует", exception.getMessage());
     }
 }

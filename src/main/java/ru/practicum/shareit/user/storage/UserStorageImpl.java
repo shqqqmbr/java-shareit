@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.practicum.shareit.exception.ConflictException;
 import ru.practicum.shareit.exception.NotFoundException;
-import ru.practicum.shareit.user.UserMapper;
 import ru.practicum.shareit.user.model.User;
-import ru.practicum.shareit.user.model.UserDto;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -18,30 +16,23 @@ public class UserStorageImpl implements UserStorage {
     private final Map<Integer, User> users = new HashMap<>();
     private final Set<String> emails = new HashSet<>();
     private final AtomicInteger idGenerator = new AtomicInteger(1);
-    private final UserMapper mapper;
 
-    public void checkUserExists(int id) {
-        if (!users.containsKey(id)) {
-            throw new NotFoundException("User with id " + id + " not found");
-        }
-    }
 
     @Override
-    public UserDto addUser(UserDto user) {
+    public User addUser(User user) {
         checkEmailUniqueness(user.getEmail());
         user.setId(idGenerator.getAndIncrement());
-        users.put(user.getId(), mapper.toEntity(user));
+        users.put(user.getId(), user);
         emails.add(user.getEmail());
         return user;
     }
 
     @Override
-    public UserDto updateUser(int id, UserDto userUpdates) {
-        checkUserExists(id);
+    public User updateUser(int id, User userUpdates) {
         checkEmailUniqueness(userUpdates.getEmail());
+        checkUserExists(id);
         emails.remove(users.get(id).getEmail());
         userUpdates.setId(id);
-        mapper.updateUserFromDto(userUpdates, users.get(id));
         emails.add(userUpdates.getEmail());
         return userUpdates;
     }
@@ -54,16 +45,24 @@ public class UserStorageImpl implements UserStorage {
     }
 
     @Override
-    public UserDto getUser(int id) {
+    public User getUser(int id) {
         checkUserExists(id);
-        return mapper.toDto(users.get(id));
+        return users.get(id);
     }
 
     @Override
-    public List<UserDto> getAllUsers() {
+    public List<User> getAllUsers() {
         return users.values().stream()
-                .map(mapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    //    Думал перенести эти две проверки в сервис,
+//    но не захотел нарушать интерфейс хранилища пользователя, чтобы
+//    там остались только CRUD методы
+    public void checkUserExists(int id) {
+        if (!users.containsKey(id)) {
+            throw new NotFoundException("User with id " + id + " not found");
+        }
     }
 
     private void checkEmailUniqueness(String email) {

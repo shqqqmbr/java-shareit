@@ -2,10 +2,7 @@ package ru.practicum.shareit.item.storage;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import ru.practicum.shareit.exception.NotFoundException;
-import ru.practicum.shareit.item.ItemMapper;
 import ru.practicum.shareit.item.model.Item;
-import ru.practicum.shareit.item.model.ItemDto;
 import ru.practicum.shareit.user.storage.UserStorageImpl;
 
 import java.util.HashMap;
@@ -20,40 +17,37 @@ public class ItemStorageImpl implements ItemStorage {
     private final Map<Integer, Item> items = new HashMap<>();
     private final AtomicInteger idGenerator = new AtomicInteger(1);
     private final UserStorageImpl storage;
-    private final ItemMapper mapper;
 
     @Override
-    public ItemDto addItem(ItemDto itemDto, int ownerId) {
+    public Item addItem(Item itemDto, int ownerId) {
         storage.checkUserExists(ownerId);
         itemDto.setId(idGenerator.getAndIncrement());
         itemDto.setOwner(ownerId);
-        items.put(itemDto.getId(), mapper.toEntity(itemDto));
+        items.put(itemDto.getId(), itemDto);
         return itemDto;
     }
 
     @Override
-    public ItemDto updateItem(int itemId, ItemDto itemDto, int ownerId) {
+    public Item updateItem(int itemId, Item itemDto, int ownerId) {
         storage.checkUserExists(ownerId);
         itemDto.setId(itemId);
-        mapper.updateItemFromDto(itemDto, items.get(itemId));
         return itemDto;
     }
 
     @Override
-    public ItemDto getItem(int itemId) {
-        return getItemOrThrow(itemId);
+    public Item getItem(int itemId) {
+        return items.get(itemId);
     }
 
     @Override
-    public List<ItemDto> getAllUserItems(int ownerId) {
+    public List<Item> getAllUserItems(int ownerId) {
         return items.values().stream()
                 .filter(item -> item.getOwner() == ownerId)
-                .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<ItemDto> getItemsByText(String text) {
+    public List<Item> getItemsByText(String text) {
         if (text == null || text.isBlank()) {
             return List.of();
         }
@@ -61,18 +55,9 @@ public class ItemStorageImpl implements ItemStorage {
         String searchText = text.toLowerCase();
 
         return items.values().stream()
-                .map(mapper::toDto)
-                .filter(ItemDto::getAvailable)
+                .filter(Item::getAvailable)
                 .filter(item -> item.getName().toLowerCase().contains(searchText)
                         || item.getDescription().toLowerCase().contains(searchText))
                 .collect(Collectors.toList());
-    }
-
-    private ItemDto getItemOrThrow(int itemId) {
-        ItemDto item = mapper.toDto(items.get(itemId));
-        if (item == null) {
-            throw new NotFoundException("Item with ID " + itemId + " not found");
-        }
-        return item;
     }
 }
