@@ -69,12 +69,12 @@ public class ItemServiceImpl implements ItemService {
                 .map(item -> {
                     ItemDto itemDto = itemMapper.toDto(item);
                     itemDto.setLastBooking(
-                            bookingRepository.findLastCompletedBooking(item.getId())
+                            bookingRepository.findLastCompletedBooking(item.getId(), LocalDateTime.now())
                                     .map(bookingMapper::toInputDto)
                                     .orElse(null)
                     );
                     itemDto.setNextBooking(
-                            bookingRepository.findNextActiveBooking(item.getId())
+                            bookingRepository.findNextActiveBooking(item.getId(), LocalDateTime.now())
                                     .map(bookingMapper::toInputDto)
                                     .orElse(null)
                     );

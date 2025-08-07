@@ -2,6 +2,7 @@ package ru.practicum.shareit.user;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.practicum.shareit.exception.ConflictException;
 import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.model.UserDto;
@@ -18,6 +19,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createUser(UserDto user) {
+        if (repository.existsByEmail(user.getEmail())) {
+            throw new ConflictException("Email already in use");
+        }
         User savedUser = repository.save(userMapper.toEntity(user));
         return userMapper.toDto(savedUser);
     }
@@ -25,6 +29,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto updateUser(int userId, UserDto userUpdates) {
         userUpdates.setId(userId);
+        if (repository.existsByEmail(userUpdates.getEmail())) {
+            throw new ConflictException("Email already in use");
+        }
         User existingUser = repository.findById(userId).orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found"));
         User updatedUser = userMapper.updateUserFromDto(userUpdates, existingUser);
         User savedUser = repository.save(updatedUser);

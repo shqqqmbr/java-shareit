@@ -21,19 +21,19 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
 
     @Query("SELECT b FROM Booking b " +
             "WHERE b.item.id = :itemId " +
-            "AND b.end < NOW() " +
+            "AND b.end < :now " +
             "AND b.status = 'APPROVED' " +
             "ORDER BY b.end DESC " +
             "LIMIT 1")
-    Optional<Booking> findLastCompletedBooking(@Param("itemId") int itemId);
+    Optional<Booking> findLastCompletedBooking(@Param("itemId") int itemId, LocalDateTime now);
 
     @Query("SELECT b FROM Booking b " +
             "WHERE b.item.id = :itemId " +
-            "AND b.start > NOW() " +
+            "AND b.start > :now " +
             "AND b.status = 'APPROVED' " +
             "ORDER BY b.start ASC " +
             "LIMIT 1")
-    Optional<Booking> findNextActiveBooking(@Param("itemId") int itemId);
+    Optional<Booking> findNextActiveBooking(@Param("itemId") int itemId, LocalDateTime now);
 
     boolean existsByBookerIdAndItemIdAndEndBefore(int bookerId, int itemId, LocalDateTime endTime);
 }
