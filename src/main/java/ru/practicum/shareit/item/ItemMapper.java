@@ -10,8 +10,10 @@ public interface ItemMapper {
     @Mapping(target = "lastBooking", ignore = true)
     @Mapping(target = "nextBooking", ignore = true)
     @Mapping(target = "owner", source = "owner", qualifiedByName = "userToOwnerId")
+    @Mapping(target = "comments", ignore = true)
     ItemDto toDto(Item item);
 
+    @Mapping(target = "comments", ignore = true)
     @Mapping(target = "owner", qualifiedByName = "ownerIdToUser")
     Item toEntity(ItemDto itemDto);
 
@@ -31,5 +33,6 @@ public interface ItemMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "owner", ignore = true)
+    @Mapping(target = "comments", ignore = true)
     Item updateItemFromDto(ItemDto itemDto, @MappingTarget Item item);
 }

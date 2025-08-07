@@ -66,8 +66,8 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<BookingDto> getAllOwnerBookings(String state, int ownerId) {
-        userRepository.findById(ownerId).
-                orElseThrow(() -> new NotFoundException("User not found"));
+        userRepository.findById(ownerId)
+                .orElseThrow(() -> new NotFoundException("User not found"));
         return bookingRepository.findByItemOwnerIdOrderByStartDesc(ownerId).stream()
                 .map(bookingMapper::toDto)
                 .collect(Collectors.toList());
