@@ -34,6 +34,11 @@ public class BookingController {
     }
 
     @GetMapping("/owner")
+    public List<BookingDto> getAllOwnerBookings(@RequestParam(defaultValue = "ALL") String state, @RequestHeader(HttpHeaders.SHARER_USER_ID) Integer ownerId) {
+        return service.getAllOwnerBookings(state, ownerId);
+    }
+
+    @GetMapping
     public List<BookingDto> getAllUserBookings(@RequestParam(defaultValue = "ALL") String state, @RequestHeader(HttpHeaders.SHARER_USER_ID) Integer ownerId) {
         return service.getAllUserBookings(state, ownerId);
     }

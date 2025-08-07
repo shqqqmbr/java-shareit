@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.shareit.item.model.CommentDto;
 import ru.practicum.shareit.item.model.ItemDto;
 
 import java.util.List;
@@ -38,5 +39,10 @@ public class ItemController {
     @GetMapping("/search")
     public List<ItemDto> getItemsByText(@RequestParam String text) {
         return service.getItemsByText(text);
+    }
+
+    @PostMapping("/{itemId}/comment")
+    public CommentDto addComment(@RequestBody CommentDto comment, @PathVariable Integer itemId, @RequestHeader(HttpHeaders.SHARER_USER_ID) Integer ownerId) {
+        return service.addComment(comment, itemId, ownerId);
     }
 }

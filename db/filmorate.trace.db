@@ -1,0 +1,132 @@
+2025-08-07 19:13:19.061791+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:13:19.370301+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:13:19.717116+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:13:20.083777+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:13:20.420777+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:13:20.970449+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:13:21.025093+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:13:21.318732+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:13:21.361732+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:13:21.645880+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:13:21.693880+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:13:21.954565+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:14:23.273438+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:14:23.541136+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:14:23.829176+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:14:24.092176+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:14:24.391281+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:14:24.897018+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:14:24.950364+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:14:25.207471+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:14:25.254471+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:14:25.506872+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:14:25.553872+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:14:25.822546+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENT" не найдена
+Table "ITEMS_COMMENT" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comment c1_0 join comments c1_1 on c1_1.id=c1_0.comment_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:32:34.945302+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENTS" не найдена
+Table "ITEMS_COMMENTS" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comments c1_0 join comments c1_1 on c1_1.id=c1_0.comments_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:32:35.252209+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENTS" не найдена
+Table "ITEMS_COMMENTS" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comments c1_0 join comments c1_1 on c1_1.id=c1_0.comments_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:32:35.598105+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENTS" не найдена
+Table "ITEMS_COMMENTS" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comments c1_0 join comments c1_1 on c1_1.id=c1_0.comments_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:32:35.931905+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENTS" не найдена
+Table "ITEMS_COMMENTS" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comments c1_0 join comments c1_1 on c1_1.id=c1_0.comments_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:32:36.413433+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENTS" не найдена
+Table "ITEMS_COMMENTS" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comments c1_0 join comments c1_1 on c1_1.id=c1_0.comments_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:32:36.979549+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENTS" не найдена
+Table "ITEMS_COMMENTS" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comments c1_0 join comments c1_1 on c1_1.id=c1_0.comments_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:32:37.091058+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENTS" не найдена
+Table "ITEMS_COMMENTS" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comments c1_0 join comments c1_1 on c1_1.id=c1_0.comments_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:32:37.385472+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENTS" не найдена
+Table "ITEMS_COMMENTS" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comments c1_0 join comments c1_1 on c1_1.id=c1_0.comments_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]
+2025-08-07 19:32:37.717653+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS_COMMENTS" не найдена
+Table "ITEMS_COMMENTS" not found; SQL statement:
+select c1_0.item_id,c1_1.id,a1_0.id,a1_0.email,a1_0.name,c1_1.created,i1_0.id,i1_0.is_available,i1_0.description,i1_0.name,o1_0.id,o1_0.email,o1_0.name,c1_1.text from items_comments c1_0 join comments c1_1 on c1_1.id=c1_0.comments_id left join users a1_0 on a1_0.id=c1_1.author_id left join items i1_0 on i1_0.id=c1_1.item_id left join users o1_0 on o1_0.id=i1_0.owner_id where c1_0.item_id=? [42102-224]

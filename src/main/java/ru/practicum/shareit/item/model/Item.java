@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.practicum.shareit.user.model.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -20,4 +23,6 @@ public class Item {
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
+    @OneToMany(mappedBy = "item")
+    private List<Comment> comments = new ArrayList<>();
 }

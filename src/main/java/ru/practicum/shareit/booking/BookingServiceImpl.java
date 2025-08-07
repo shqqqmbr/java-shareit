@@ -14,6 +14,7 @@ import ru.practicum.shareit.user.UserRepository;
 import ru.practicum.shareit.user.model.User;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,8 +31,8 @@ public class BookingServiceImpl implements BookingService {
         User userEntity = userRepository.findById(ownerId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
         Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new NotFoundException("Item not found"))  ;
-        if (!item.getAvailable()){
+                .orElseThrow(() -> new NotFoundException("Item not found"));
+        if (!item.getAvailable()) {
             throw new BadRequestException("Item is not available");
         }
         bookingEntity.setItem(item);
@@ -45,8 +46,8 @@ public class BookingServiceImpl implements BookingService {
     public BookingDto approveBooking(int bookingId, boolean approved, int ownerId) {
         Booking booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new NotFoundException("Booking not found"));
-        if(booking.getBooker().getId() != ownerId){
-            throw new ForbiddenException("Booking is not approved");
+        if (booking.getItem().getOwner().getId() != ownerId) {
+            throw new ForbiddenException("User is not owner of this Booking");
         }
         booking.setStatus(approved ? Status.APPROVED : Status.REJECTED);
         bookingRepository.save(booking);
@@ -55,11 +56,29 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingDto getBooking(int bookingId, String state, int ownerId) {
-        return null;
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new NotFoundException("Booking not found"));
+        if (booking.getItem().getOwner().getId() == ownerId || booking.getBooker().getId() == ownerId) {
+            return bookingMapper.toDto(booking);
+        }
+        throw new NotFoundException("User is not owner of this Booking");
+    }
+
+    @Override
+    public List<BookingDto> getAllOwnerBookings(String state, int ownerId) {
+        userRepository.findById(ownerId).
+                orElseThrow(() -> new NotFoundException("User not found"));
+        return bookingRepository.findByItemOwnerIdOrderByStartDesc(ownerId).stream()
+                .map(bookingMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<BookingDto> getAllUserBookings(String state, int ownerId) {
-        return List.of();
+        userRepository.findById(ownerId)
+                .orElseThrow(() -> new NotFoundException("User not found"));
+        return bookingRepository.findByBookerIdOrderByStartDesc(ownerId).stream()
+                .map(b -> bookingMapper.toDto(b))
+                .collect(Collectors.toList());
     }
 }

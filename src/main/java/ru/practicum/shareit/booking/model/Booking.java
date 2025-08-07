@@ -7,7 +7,6 @@ import ru.practicum.shareit.booking.Status;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -15,11 +14,10 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "bookings")
 public class Booking {
-//    В методичке требует поле назвать Id, а по тестам bookingId
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer bookingId;
+    private Integer id;
     @Column(name = "start_date")
     private LocalDateTime start;
     @Column(name = "end_date")

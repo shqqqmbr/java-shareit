@@ -7,6 +7,8 @@ import ru.practicum.shareit.user.model.User;
 
 @Mapper(componentModel = "spring")
 public interface ItemMapper {
+    @Mapping(target = "lastBooking", ignore = true)
+    @Mapping(target = "nextBooking", ignore = true)
     @Mapping(target = "owner", source = "owner", qualifiedByName = "userToOwnerId")
     ItemDto toDto(Item item);
 
