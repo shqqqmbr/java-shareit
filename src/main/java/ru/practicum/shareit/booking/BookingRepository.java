@@ -20,6 +20,34 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
     List<Booking> findByItemOwnerIdOrderByStartDesc(Integer ownerId);
 
     @Query("SELECT b FROM Booking b " +
+            "WHERE b.item.owner.id = :ownerId " +
+            "AND b.start < :now " +
+            "AND b.end > :now " +
+            "AND b.status = 'APPROVED' " +
+            "ORDER BY b.start DESC")
+    List<Booking> findByItemOwnerIdAndStartBeforeAndEndAfter(Integer ownerId, LocalDateTime now);
+
+    @Query("SELECT b FROM Booking b " +
+            "WHERE b.item.owner.id = :ownerId " +
+            "AND b.end < :now " +
+            "AND b.status = 'APPROVED' " +
+            "ORDER BY b.start DESC")
+    List<Booking> findByItemOwnerIdAndEndBefore(Integer ownerId, LocalDateTime now);
+
+    @Query("SELECT b FROM Booking b " +
+            "WHERE b.item.owner.id = :ownerId " +
+            "AND b.start > :now " +
+            "AND b.status = 'APPROVED' " +
+            "ORDER BY b.start DESC")
+    List<Booking> findByItemOwnerIdAndStartAfter(Integer ownerId, LocalDateTime now);
+
+    @Query("SELECT b FROM Booking b " +
+            "WHERE b.item.owner.id = :ownerId " +
+            "AND b.status = :status " +
+            "ORDER BY b.start DESC")
+    List<Booking> findByitemOwnerIdAndStatus(Integer ownerId, Status status);
+
+    @Query("SELECT b FROM Booking b " +
             "WHERE b.item.id = :itemId " +
             "AND b.end < :now " +
             "AND b.status = 'APPROVED' " +
