@@ -12,12 +12,14 @@ import java.util.Optional;
 
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
-    List<Booking> findByBookerIdOrderByStartDesc(Integer bookerId);
 
+    //    Убрал лишний метод, jpql запрос сделал универсальным
+//            для поиска по bookerId и itemOwnerId
     @Query("SELECT b FROM Booking b " +
             "WHERE b.item.owner.id = :ownerId " +
+            "OR b.booker.id = :ownerId " +
             "ORDER BY b.start DESC")
-    List<Booking> findByItemOwnerIdOrderByStartDesc(Integer ownerId);
+    List<Booking> findByOwnerIdOrderByStartDesc(Integer ownerId);
 
     @Query("SELECT b FROM Booking b " +
             "WHERE b.item.owner.id = :ownerId " +

@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.model.BookingDto;
 import ru.practicum.shareit.booking.model.BookingInputDto;
+import ru.practicum.shareit.booking.strategy.BookingStrategy;
+import ru.practicum.shareit.booking.strategy.StrategyPicker;
 import ru.practicum.shareit.exception.BadRequestException;
 import ru.practicum.shareit.exception.ForbiddenException;
 import ru.practicum.shareit.exception.NotFoundException;
@@ -13,9 +15,7 @@ import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.UserRepository;
 import ru.practicum.shareit.user.model.User;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -65,71 +65,12 @@ public class BookingServiceImpl implements BookingService {
         throw new NotFoundException("User is not owner of this Booking");
     }
 
-    @Override
-    public List<BookingDto> getAllOwnerBookings(String state, int ownerId) {
-        userRepository.findById(ownerId)
-                .orElseThrow(() -> new NotFoundException("User not found"));
-        switch (state) {
-            case "CURRENT":
-                return bookingRepository.findByItemOwnerIdAndStartBeforeAndEndAfter(ownerId, LocalDateTime.now()).stream()
-                        .map(bookingMapper::toDto)
-                        .collect(Collectors.toList());
-            case "PAST":
-                return bookingRepository.findByItemOwnerIdAndEndBefore(ownerId, LocalDateTime.now()).stream()
-                        .map(bookingMapper::toDto)
-                        .collect(Collectors.toList());
-            case "FUTURE":
-                return bookingRepository.findByItemOwnerIdAndStartAfter(ownerId, LocalDateTime.now()).stream()
-                        .map(bookingMapper::toDto)
-                        .collect(Collectors.toList());
-            case "WAITING":
-                return bookingRepository.findByitemOwnerIdAndStatus(ownerId, Status.WAITING).stream()
-                        .map(bookingMapper::toDto)
-                        .collect(Collectors.toList());
-            case "REJECTED":
-                return bookingRepository.findByitemOwnerIdAndStatus(ownerId, Status.REJECTED).stream()
-                        .map(bookingMapper::toDto)
-                        .collect(Collectors.toList());
-            case "ALL":
-                return bookingRepository.findByItemOwnerIdOrderByStartDesc(ownerId).stream()
-                        .map(bookingMapper::toDto)
-                        .collect(Collectors.toList());
-            default:
-                throw new BadRequestException("Invalid state");
-        }
-    }
-
+    //    Здесь убрал идентичный метод, вся логика поиска находится в JPQL-запросе
     @Override
     public List<BookingDto> getAllUserBookings(String state, int ownerId) {
         userRepository.findById(ownerId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
-        switch (state) {
-            case "CURRENT":
-                return bookingRepository.findByItemOwnerIdAndStartBeforeAndEndAfter(ownerId, LocalDateTime.now()).stream()
-                        .map(bookingMapper::toDto)
-                        .collect(Collectors.toList());
-            case "PAST":
-                return bookingRepository.findByItemOwnerIdAndEndBefore(ownerId, LocalDateTime.now()).stream()
-                        .map(bookingMapper::toDto)
-                        .collect(Collectors.toList());
-            case "FUTURE":
-                return bookingRepository.findByItemOwnerIdAndStartAfter(ownerId, LocalDateTime.now()).stream()
-                        .map(bookingMapper::toDto)
-                        .collect(Collectors.toList());
-            case "WAITING":
-                return bookingRepository.findByitemOwnerIdAndStatus(ownerId, Status.WAITING).stream()
-                        .map(bookingMapper::toDto)
-                        .collect(Collectors.toList());
-            case "REJECTED":
-                return bookingRepository.findByitemOwnerIdAndStatus(ownerId, Status.REJECTED).stream()
-                        .map(bookingMapper::toDto)
-                        .collect(Collectors.toList());
-            case "ALL":
-                return bookingRepository.findByBookerIdOrderByStartDesc(ownerId).stream()
-                        .map(bookingMapper::toDto)
-                        .collect(Collectors.toList());
-            default:
-                throw new BadRequestException("Invalid state");
-        }
+        BookingStrategy strategy = new StrategyPicker(bookingRepository, bookingMapper).pick(state);
+        return strategy.findBookings(ownerId);
     }
 }
