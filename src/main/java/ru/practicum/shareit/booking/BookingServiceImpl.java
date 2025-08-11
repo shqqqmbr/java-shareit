@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.model.BookingDto;
 import ru.practicum.shareit.booking.model.BookingInputDto;
-import ru.practicum.shareit.booking.strategy.BookingStrategy;
+import ru.practicum.shareit.booking.strategy.AbstractBookingStrategy;
 import ru.practicum.shareit.booking.strategy.StrategyPicker;
 import ru.practicum.shareit.exception.BadRequestException;
 import ru.practicum.shareit.exception.ForbiddenException;
@@ -24,6 +24,7 @@ public class BookingServiceImpl implements BookingService {
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
     private final BookingMapper bookingMapper;
+    private final StrategyPicker strategyPicker;
 
     @Override
     public BookingDto addBooking(BookingInputDto booking, int ownerId) {
@@ -70,7 +71,7 @@ public class BookingServiceImpl implements BookingService {
     public List<BookingDto> getAllUserBookings(String state, int ownerId) {
         userRepository.findById(ownerId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
-        BookingStrategy strategy = new StrategyPicker(bookingRepository, bookingMapper).pick(state);
+        AbstractBookingStrategy strategy = strategyPicker.pick(state);
         return strategy.findBookings(ownerId);
     }
 }
