@@ -13,7 +13,7 @@ public class StrategyPicker {
 
     public AbstractBookingStrategy pick(String state) {
         return strategies.stream()
-                .filter(strategy -> strategy.getState().equals(state))
+                .filter(strategy -> strategy.getState().equals(state.toString()))
                 .findFirst()
                 .orElseThrow(() -> new BadRequestException("Strategy not found"));
     }
