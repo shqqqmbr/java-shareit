@@ -14,5 +14,5 @@ public interface UserMapper {
     User toEntity(UserDto userDto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateUserFromDto(UserDto userDto, @MappingTarget User user);
+    User updateUserFromDto(UserDto userDto, @MappingTarget User user);
 }

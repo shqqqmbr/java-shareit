@@ -1,46 +1,20 @@
 package ru.practicum.shareit.item;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import ru.practicum.shareit.item.model.Item;
+import ru.practicum.shareit.item.model.CommentDto;
 import ru.practicum.shareit.item.model.ItemDto;
-import ru.practicum.shareit.item.storage.ItemStorage;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Service
-@RequiredArgsConstructor
-public class ItemService {
-    private final ItemStorage storage;
-    private final ItemMapper itemMapper;
+public interface ItemService {
+    ItemDto addItem(ItemDto itemDto, int ownerId);
 
-    public ItemDto addItem(ItemDto itemDto, int ownerId) {
-        Item item = itemMapper.toEntity(itemDto);
-        Item savedItem = storage.addItem(item, ownerId);
-        return itemMapper.toDto(savedItem);
-    }
+    ItemDto updateItem(int itemId, ItemDto itemDto, int ownerId);
 
-    public ItemDto updateItem(int itemId, ItemDto itemDto, int ownerId) {
-        Item item = itemMapper.toEntity(itemDto);
-        Item savedItem = storage.updateItem(itemId, item, ownerId);
-        return itemMapper.toDto(savedItem);
-    }
+    ItemDto getItem(int itemId);
 
-    public ItemDto getItem(int itemId) {
-        Item item = storage.getItem(itemId);
-        return itemMapper.toDto(item);
-    }
+    List<ItemDto> getAllUserItems(int ownerId);
 
-    public List<ItemDto> getAllUserItems(int ownerId) {
-        return storage.getAllUserItems(ownerId).stream()
-                .map(itemMapper::toDto)
-                .collect(Collectors.toList());
-    }
+    List<ItemDto> getItemsByText(String text);
 
-    public List<ItemDto> getItemsByText(String text) {
-        return storage.getItemsByText(text).stream()
-                .map(itemMapper::toDto)
-                .collect(Collectors.toList());
-    }
+    CommentDto addComment(CommentDto comment, int itemId, int ownerId);
 }
