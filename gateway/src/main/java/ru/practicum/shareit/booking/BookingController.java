@@ -2,6 +2,7 @@ package ru.practicum.shareit.booking;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -10,10 +11,16 @@ import ru.practicum.shareit.booking.model.BookingInputDto;
 
 @RestController
 @RequestMapping(path = "/bookings")
-@RequiredArgsConstructor
 @Validated
 public class BookingController {
 	private final BookingClient client;
+
+
+//	НЕ РАБОТАЕТ RequiredArgsConstructor
+	@Autowired
+	public BookingController(BookingClient client) {
+		this.client = client;
+	}
 
 	@PostMapping
 	public ResponseEntity<Object> addBooking(@Valid @RequestBody BookingInputDto booking, @RequestHeader("X-Sharer-User-Id") Integer ownerId) {
