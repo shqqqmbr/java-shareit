@@ -37,6 +37,6 @@ public class BookingClient extends BaseClient {
     }
 
     public ResponseEntity<Object> getAllUserBookings(String state, Integer ownerId) {
-        return get("/owner?state=" + state, ownerId);
+        return get("/owner?state={state}" + state, ownerId);
     }
 }
