@@ -28,6 +28,22 @@ public class BaseClient {
         return get(path, 0, parameters);
     }
 
+    protected ResponseEntity<Object> get(String path, Object... uriVariables) {
+        return makeAndSendRequest(HttpMethod.GET, path, 0, null, null, uriVariables);
+    }
+
+    protected ResponseEntity<Object> patch(String path, Object... uriVariables) {
+        return makeAndSendRequest(HttpMethod.PATCH, path, 0, null, null, uriVariables);
+    }
+
+    protected <T> ResponseEntity<Object> patch(String path, T body, Object... uriVariables) {
+        return makeAndSendRequest(HttpMethod.PATCH, path, 0, null, body, uriVariables);
+    }
+
+    protected ResponseEntity<Object> delete(String path, Object... uriVariables) {
+        return makeAndSendRequest(HttpMethod.DELETE, path, 0, null, null, uriVariables);
+    }
+
     protected ResponseEntity<Object> get(String path, Integer userId, Integer bookingId) {
         return get(path, 0, null);
     }
@@ -84,13 +100,17 @@ public class BaseClient {
         return makeAndSendRequest(HttpMethod.DELETE, path, userId, parameters, null);
     }
 
-    private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path, int userId, @Nullable Map<String, Object> parameters, @Nullable T body) {
+    private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path, int userId,
+                                                          @Nullable Map<String, Object> parameters, @Nullable T body, Object... uriVariables) {
+
         HttpEntity<T> requestEntity = new HttpEntity<>(body, defaultHeaders(userId));
 
         ResponseEntity<Object> shareitServerResponse;
         try {
             if (parameters != null) {
                 shareitServerResponse = rest.exchange(path, method, requestEntity, Object.class, parameters);
+            } else if (uriVariables != null && uriVariables.length > 0) {
+                shareitServerResponse = rest.exchange(path, method, requestEntity, Object.class, uriVariables);
             } else {
                 shareitServerResponse = rest.exchange(path, method, requestEntity, Object.class);
             }
@@ -98,6 +118,11 @@ public class BaseClient {
             return ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsByteArray());
         }
         return prepareGatewayResponse(shareitServerResponse);
+    }
+
+    private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path, int userId,
+                                                          @Nullable Map<String, Object> parameters, @Nullable T body) {
+        return makeAndSendRequest(method, path, userId, parameters, body, (Object[]) null);
     }
 
     private HttpHeaders defaultHeaders(int userId) {
