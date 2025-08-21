@@ -14,12 +14,11 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/bookings")
 @RequiredArgsConstructor
-@Validated
 public class BookingController {
     private final BookingService service;
 
     @PostMapping
-    public BookingDto addBooking(@Valid @RequestBody BookingInputDto booking, @RequestHeader(HttpHeaders.SHARER_USER_ID) Integer ownerId) {
+    public BookingDto addBooking(@RequestBody BookingInputDto booking, @RequestHeader(HttpHeaders.SHARER_USER_ID) Integer ownerId) {
         return service.addBooking(booking, ownerId);
     }
 
