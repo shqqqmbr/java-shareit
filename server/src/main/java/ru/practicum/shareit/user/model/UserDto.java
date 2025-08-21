@@ -11,9 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserDto {
     private Integer id;
-    @NotBlank
     private String name;
-    @NotBlank
-    @Email
     private String email;
 }

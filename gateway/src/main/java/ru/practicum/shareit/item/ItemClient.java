@@ -28,7 +28,12 @@ public class ItemClient extends BaseClient {
     }
 
     public ResponseEntity<Object> addItem(Integer ownerId, ItemDto itemDto) {
-        return post("", ownerId, itemDto);
+        if (itemDto.getRequestId() != null) {
+            Map<String, Object> parameters = Map.of("requestId", itemDto.getRequestId());
+            return post("", ownerId, parameters, itemDto);
+        } else {
+            return post("", ownerId, itemDto);
+        }
     }
 
     public ResponseEntity<Object> updateItem(Integer ownerId, Integer itemId, ItemDto itemDto) {
@@ -48,6 +53,6 @@ public class ItemClient extends BaseClient {
     }
 
     public ResponseEntity<Object> addComment(CommentDto commentDto, Integer itemId, Integer ownerId) {
-        return post("/" + itemId + "/comment", ownerId, commentDto);
+        return post("/{itemId}/comment", ownerId, commentDto, itemId);
     }
 }

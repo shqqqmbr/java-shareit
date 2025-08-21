@@ -20,7 +20,7 @@ public class ItemRequestController {
 
     @PostMapping
     public ResponseEntity<Object> addItemRequest(@RequestBody @Validated ItemRequestDto dto, @RequestHeader("X-Sharer-User-Id") Integer ownerId) {
-        return client.addItemRequest(dto, ownerId);
+        return client.addItemRequest(ownerId, dto);
     }
 
     @GetMapping

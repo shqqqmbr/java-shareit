@@ -33,7 +33,7 @@ public class UserClient extends BaseClient {
     }
 
     public ResponseEntity<Object> getUserById(Integer userId) {
-        return get("/{userId}", userId);
+        return get("/{userId}", userId.intValue());
     }
 
     public ResponseEntity<Object> getAllUsers() {

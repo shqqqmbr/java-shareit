@@ -10,6 +10,8 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.shareit.booking.model.BookingInputDto;
 import ru.practicum.shareit.client.BaseClient;
 
+import java.util.Map;
+
 @Service
 public class BookingClient extends BaseClient {
     private static final String API_PREFIX = "/bookings";
@@ -29,7 +31,11 @@ public class BookingClient extends BaseClient {
     }
 
     public ResponseEntity<Object> approveBooking(Integer bookingId, Boolean approved, Integer ownerId) {
-        return patch("/" + bookingId + "?approved=" + approved, ownerId);
+        Map<String, Object> parameters = Map.of(
+                "bookingId", bookingId,
+                "approved", approved
+        );
+        return patch("/{bookingId}?approved={approved}", ownerId, parameters, null);
     }
 
     public ResponseEntity<Object> getBooking(Integer bookingId, Integer userId) {
@@ -37,6 +43,10 @@ public class BookingClient extends BaseClient {
     }
 
     public ResponseEntity<Object> getAllUserBookings(String state, Integer ownerId) {
+        return get("?state={state}" + state, ownerId);
+    }
+
+    public ResponseEntity<Object> getAllOwnerBookings(String state, Integer ownerId) {
         return get("/owner?state={state}" + state, ownerId);
     }
 }
