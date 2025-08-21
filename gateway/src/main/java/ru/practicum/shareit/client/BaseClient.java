@@ -16,10 +16,6 @@ public class BaseClient {
     }
 
     protected ResponseEntity<Object> get(String path) {
-        return get(path, null, null);
-    }
-
-    protected ResponseEntity<Object> get(String path, Integer userId, Integer bookingId) {
         return get(path, 0, null);
     }
 
@@ -28,7 +24,12 @@ public class BaseClient {
     }
 
     protected ResponseEntity<Object> get(String path, String text) {
-        return get(path, text);
+        Map<String, Object> parameters = Map.of("text", text);
+        return get(path, 0, parameters);
+    }
+
+    protected ResponseEntity<Object> get(String path, Integer userId, Integer bookingId) {
+        return get(path, 0, null);
     }
 
     protected ResponseEntity<Object> get(String path, int userId, @Nullable Map<String, Object> parameters) {
