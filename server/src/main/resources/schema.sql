@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS items
     description  VARCHAR NOT NULL,
     is_available BOOLEAN NOT NULL,
     owner_id     INT     NOT NULL REFERENCES users (id),
-    request_id   INT     REFERENCES requests (id)
+    request_id   INT REFERENCES requests (id)
 );
 
 CREATE TABLE IF NOT EXISTS bookings

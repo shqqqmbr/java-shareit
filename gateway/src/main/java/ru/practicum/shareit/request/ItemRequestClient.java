@@ -33,6 +33,6 @@ public class ItemRequestClient extends BaseClient {
     }
 
     public ResponseEntity<Object> getItemRequest(Integer requestId) {
-        return get("/" + requestId);
+        return get("/{requestId}", requestId);
     }
 }

@@ -32,8 +32,8 @@ public class BookingClient extends BaseClient {
         return patch("/" + bookingId + "?approved=" + approved, ownerId);
     }
 
-    public ResponseEntity<Object> getBooking(Integer bookingId, String state, Integer userId) {
-        return get("/{bookingId}", bookingId, state, userId);
+    public ResponseEntity<Object> getBooking(Integer bookingId, Integer userId) {
+        return get("/{bookingId}", userId, bookingId);
     }
 
     public ResponseEntity<Object> getAllUserBookings(String state, Integer ownerId) {

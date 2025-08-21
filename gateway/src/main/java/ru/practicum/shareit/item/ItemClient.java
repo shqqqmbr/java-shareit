@@ -34,7 +34,7 @@ public class ItemClient extends BaseClient {
     }
 
     public ResponseEntity<Object> getItem(Integer id) {
-        return get("/" + id);
+        return get("/{id}", id);
     }
 
     public ResponseEntity<Object> getAllUserItems(Integer ownerId) {
@@ -42,7 +42,7 @@ public class ItemClient extends BaseClient {
     }
 
     public ResponseEntity<Object> getItemsByText(String text) {
-        return get("/search?text=" + text);
+        return get("/search?text={text}", text);
     }
 
     public ResponseEntity<Object> addComment(CommentDto commentDto, Integer itemId, Integer ownerId) {

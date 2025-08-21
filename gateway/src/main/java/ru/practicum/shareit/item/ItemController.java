@@ -1,15 +1,11 @@
 package ru.practicum.shareit.item;
 
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.item.model.CommentDto;
 import ru.practicum.shareit.item.model.ItemDto;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/items")
@@ -17,7 +13,6 @@ import java.util.List;
 public class ItemController {
     private final ItemClient client;
 
-    @Autowired
     public ItemController(ItemClient client) {
         this.client = client;
     }
