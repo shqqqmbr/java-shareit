@@ -33,7 +33,7 @@ public class BookingClient extends BaseClient {
     }
 
     public ResponseEntity<Object> getBooking(Integer bookingId, String state, Integer userId) {
-        return get("/{bookingId}", bookingId, state, userId);
+        return null;
     }
 
     public ResponseEntity<Object> getAllUserBookings(String state, Integer ownerId) {
