@@ -1,8 +1,6 @@
 package ru.practicum.shareit.booking;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.booking.model.BookingDto;
 import ru.practicum.shareit.booking.model.BookingInputDto;
@@ -14,12 +12,11 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/bookings")
 @RequiredArgsConstructor
-@Validated
 public class BookingController {
     private final BookingService service;
 
     @PostMapping
-    public BookingDto addBooking(@Valid @RequestBody BookingInputDto booking, @RequestHeader(HttpHeaders.SHARER_USER_ID) Integer ownerId) {
+    public BookingDto addBooking(@RequestBody BookingInputDto booking, @RequestHeader(HttpHeaders.SHARER_USER_ID) Integer ownerId) {
         return service.addBooking(booking, ownerId);
     }
 
@@ -29,8 +26,8 @@ public class BookingController {
     }
 
     @GetMapping("/{bookingId}")
-    public BookingDto getBooking(@PathVariable Integer bookingId, @RequestParam(defaultValue = "ALL", required = false) String state, @RequestHeader(HttpHeaders.SHARER_USER_ID) Integer ownerId) {
-        return service.getBooking(bookingId, state, ownerId);
+    public BookingDto getBooking(@PathVariable Integer bookingId, @RequestHeader(HttpHeaders.SHARER_USER_ID) Integer ownerId) {
+        return service.getBooking(bookingId, ownerId);
     }
 
     @GetMapping("/owner")

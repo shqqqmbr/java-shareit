@@ -57,7 +57,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingDto getBooking(int bookingId, String state, int ownerId) {
+    public BookingDto getBooking(int bookingId, int ownerId) {
         Booking booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new NotFoundException("Booking not found"));
         if (booking.getItem().getOwner().getId() == ownerId || booking.getBooker().getId() == ownerId) {

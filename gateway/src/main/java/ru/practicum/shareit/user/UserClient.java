@@ -29,11 +29,11 @@ public class UserClient extends BaseClient {
     }
 
     public ResponseEntity<Object> updateUser(Integer userId, UserDto user) {
-        return patch("/" + userId, user);
+        return patch("/{userId}", userId, user);
     }
 
-    public ResponseEntity<Object> getUserById(Integer id) {
-        return get("/" + id);
+    public ResponseEntity<Object> getUserById(Integer userId) {
+        return get("/{userId}", userId.intValue());
     }
 
     public ResponseEntity<Object> getAllUsers() {
@@ -41,6 +41,6 @@ public class UserClient extends BaseClient {
     }
 
     public ResponseEntity<Object> deleteUser(Integer userId) {
-        return delete("/" + userId);
+        return delete("/{userId}", userId);
     }
 }

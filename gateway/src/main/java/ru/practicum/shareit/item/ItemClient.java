@@ -11,6 +11,8 @@ import ru.practicum.shareit.client.BaseClient;
 import ru.practicum.shareit.item.model.CommentDto;
 import ru.practicum.shareit.item.model.ItemDto;
 
+import java.util.Map;
+
 @Service
 public class ItemClient extends BaseClient {
     private static final String API_PREFIX = "/items";
@@ -26,7 +28,12 @@ public class ItemClient extends BaseClient {
     }
 
     public ResponseEntity<Object> addItem(Integer ownerId, ItemDto itemDto) {
-        return post("", ownerId, itemDto);
+        if (itemDto.getRequestId() != null) {
+            Map<String, Object> parameters = Map.of("requestId", itemDto.getRequestId());
+            return post("", ownerId, parameters, itemDto);
+        } else {
+            return post("", ownerId, itemDto);
+        }
     }
 
     public ResponseEntity<Object> updateItem(Integer ownerId, Integer itemId, ItemDto itemDto) {
@@ -34,7 +41,7 @@ public class ItemClient extends BaseClient {
     }
 
     public ResponseEntity<Object> getItem(Integer id) {
-        return get("/" + id);
+        return get("/{id}", 0, Map.of("id", id));
     }
 
     public ResponseEntity<Object> getAllUserItems(Integer ownerId) {
@@ -42,10 +49,10 @@ public class ItemClient extends BaseClient {
     }
 
     public ResponseEntity<Object> getItemsByText(String text) {
-        return get("/search?text=" + text);
+        return get("/search?text={text}", text);
     }
 
     public ResponseEntity<Object> addComment(CommentDto commentDto, Integer itemId, Integer ownerId) {
-        return post("/" + itemId + "/comment", ownerId, commentDto);
+        return post("/{itemId}/comment", ownerId, commentDto, itemId);
     }
 }

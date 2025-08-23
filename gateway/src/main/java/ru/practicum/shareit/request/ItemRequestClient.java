@@ -24,7 +24,7 @@ public class ItemRequestClient extends BaseClient {
         );
     }
 
-    public ResponseEntity<Object> addItemRequest(ItemRequestDto itemRequestDto, Integer ownerId) {
+    public ResponseEntity<Object> addItemRequest(Integer ownerId, ItemRequestDto itemRequestDto) {
         return post("", ownerId, itemRequestDto);
     }
 
@@ -33,6 +33,6 @@ public class ItemRequestClient extends BaseClient {
     }
 
     public ResponseEntity<Object> getItemRequest(Integer requestId) {
-        return get("/" + requestId);
+        return get("/{requestId}", requestId);
     }
 }
