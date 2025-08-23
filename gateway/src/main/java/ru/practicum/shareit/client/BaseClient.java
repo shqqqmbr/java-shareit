@@ -32,10 +32,6 @@ public class BaseClient {
         return makeAndSendRequest(HttpMethod.GET, path, userId, parameters, null, null);
     }
 
-    protected <T> ResponseEntity<Object> post(String path, T body) {
-        return post(path, null, null, body);
-    }
-
     protected <T> ResponseEntity<Object> post(String path, int userId, T body) {
         return post(path, userId, null, body);
     }
@@ -44,20 +40,12 @@ public class BaseClient {
         return makeAndSendRequest(HttpMethod.POST, path, userId, parameters, body, null);
     }
 
-    protected <T> ResponseEntity<Object> put(String path, int userId, T body) {
-        return put(path, userId, null, body);
-    }
-
     protected <T> ResponseEntity<Object> put(String path, int userId, @Nullable Map<String, Object> parameters, T body) {
         return makeAndSendRequest(HttpMethod.PUT, path, userId, parameters, body, null);
     }
 
     protected <T> ResponseEntity<Object> patch(String path, T body) {
         return patch(path, null, null, body);
-    }
-
-    protected <T> ResponseEntity<Object> patch(String path, int userId) {
-        return patch(path, userId, null, null);
     }
 
     protected <T> ResponseEntity<Object> patch(String path, int userId, T body) {
@@ -74,10 +62,6 @@ public class BaseClient {
 
     protected ResponseEntity<Object> delete(String path) {
         return delete(path, null, null);
-    }
-
-    protected ResponseEntity<Object> delete(String path, int userId) {
-        return delete(path, userId, null);
     }
 
     protected ResponseEntity<Object> delete(String path, Integer userId, @Nullable Map<String, Object> parameters) {
