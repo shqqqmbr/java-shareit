@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.item.model.CommentDto;
 import ru.practicum.shareit.item.model.ItemDto;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/items")
 @RequiredArgsConstructor
