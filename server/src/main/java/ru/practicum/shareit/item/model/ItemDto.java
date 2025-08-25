@@ -1,10 +1,9 @@
 package ru.practicum.shareit.item.model;
 
 
-import jakarta.validation.constraints.NotBlank;
+
 import lombok.Getter;
 import lombok.Setter;
-import org.antlr.v4.runtime.misc.NotNull;
 import ru.practicum.shareit.booking.model.BookingInputDto;
 
 import java.util.List;
@@ -13,11 +12,8 @@ import java.util.List;
 @Setter
 public class ItemDto {
     private Integer id;
-    @NotBlank
     private String name;
-    @NotBlank
     private String description;
-    @NotNull
     private Boolean available;
     private Integer owner;
     private BookingInputDto lastBooking;

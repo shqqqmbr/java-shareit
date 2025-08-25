@@ -1,7 +1,5 @@
 package ru.practicum.shareit.booking.model;
 
-import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,10 +14,6 @@ import java.time.LocalDateTime;
 public class BookingInputDto {
     private Integer id;
     private Integer itemId;
-    @FutureOrPresent
-    @NotNull
     private LocalDateTime start;
-    @FutureOrPresent
-    @NotNull
     private LocalDateTime end;
 }
