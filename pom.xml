@@ -17,8 +17,8 @@
     <name>ShareIt</name>
 
     <properties>
-        <java.version>23</java.version>
-        <jacoco.version>0.8.13</jacoco.version>
+        <java.version>21</java.version>
+        <jacoco.version>0.8.12</jacoco.version>
         <surefire.version>2.22.2</surefire.version>
         <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
         <spotbugs.version>4.8.5.0</spotbugs.version>
