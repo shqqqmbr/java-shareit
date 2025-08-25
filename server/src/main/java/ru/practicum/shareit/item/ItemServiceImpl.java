@@ -38,13 +38,11 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public ItemDto addItem(ItemDto itemDto, int ownerId) {
         Item item = itemMapper.toEntity(itemDto);
-        User owner = userRepository.findById(ownerId)
-                .orElseThrow(() -> new NotFoundException("Owner with id=" + ownerId + " not found"));
+        User owner = userRepository.findById(ownerId).get();
         item.setOwner(owner);
         Integer requestId = itemDto.getRequestId();
         if (requestId != null) {
-            ItemRequest request = itemRequestRepository.findById(requestId)
-                    .orElseThrow(() -> new NotFoundException("Request with id=" + requestId + " not found"));
+            ItemRequest request = itemRequestRepository.findById(requestId).get();
             item.setRequest(request);
             request.getItems().add(item);
             itemRequestRepository.save(request);
@@ -106,10 +104,8 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public CommentDto addComment(CommentDto commentDto, int itemId, int userId) {
-        User author = userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException("Пользователь не найден"));
-        Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new NotFoundException("Вещь не найдена"));
+        User author = userRepository.findById(userId).get();
+        Item item = itemRepository.findById(itemId).get();
         boolean hasBooked = bookingRepository.existsByBookerIdAndItemIdAndEndBefore(
                 userId, itemId, LocalDateTime.now());
         if (!hasBooked) {

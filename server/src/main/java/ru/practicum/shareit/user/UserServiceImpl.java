@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
         if (repository.existsByEmail(userUpdates.getEmail())) {
             throw new ConflictException("Email already in use");
         }
-        User existingUser = repository.findById(userId).orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found"));
+        User existingUser = repository.findById(userId).get();
         User updatedUser = userMapper.updateUserFromDto(userUpdates, existingUser);
         User savedUser = repository.save(updatedUser);
         return userMapper.toDto(savedUser);
