@@ -18,6 +18,8 @@ import ru.practicum.shareit.user.UserRepository;
 import ru.practicum.shareit.user.model.User;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -97,6 +99,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemDto> getItemsByText(String text) {
+        if (text.isEmpty()) {
+            return Collections.emptyList();
+        }
         return itemRepository.searchAvailableItemsByText(text).stream()
                 .map(item -> itemMapper.toDto(item))
                 .collect(Collectors.toList());
@@ -115,6 +120,9 @@ public class ItemServiceImpl implements ItemService {
         comment.setItem(item);
         comment.setAuthor(author);
         comment.setCreated(LocalDateTime.now());
+        if (item.getComments() == null) {
+            item.setComments(new ArrayList<>());
+        }
         item.getComments().add(comment);
         itemRepository.save(item);
         return commentMapper.toDto(commentRepository.save(comment));
