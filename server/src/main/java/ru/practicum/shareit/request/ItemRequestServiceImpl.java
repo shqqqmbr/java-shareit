@@ -2,7 +2,6 @@ package ru.practicum.shareit.request;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.request.model.ItemRequest;
 import ru.practicum.shareit.request.model.ItemRequestDto;
 import ru.practicum.shareit.user.UserRepository;
@@ -22,7 +21,7 @@ public class ItemRequestServiceImpl implements ItemRequestService {
     @Override
     public ItemRequestDto addItemRequest(ItemRequestDto itemRequestDto, int ownerId) {
         ItemRequest request = itemRequestMapper.toEntity(itemRequestDto);
-        User requestor = userRepository.findById(ownerId).orElseThrow(() -> new NotFoundException("Owner with id=" + ownerId + " not found"));
+        User requestor = userRepository.findById(ownerId).get();
         request.setRequestor(requestor);
         request.setCreated(LocalDateTime.now());
         ItemRequest savedRequest = itemRequestRepository.save(request);
@@ -36,7 +35,7 @@ public class ItemRequestServiceImpl implements ItemRequestService {
                     .map(itemRequestMapper::toDto)
                     .collect(Collectors.toList());
         }
-        userRepository.findById(ownerId).orElseThrow(() -> new NotFoundException("Owner id=" + ownerId + " not found"));
+        userRepository.findById(ownerId);
         return itemRequestRepository.findByRequestorId(ownerId).stream()
                 .map(itemRequestMapper::toDto)
                 .collect(Collectors.toList());
@@ -44,6 +43,6 @@ public class ItemRequestServiceImpl implements ItemRequestService {
 
     @Override
     public ItemRequestDto getItemRequest(int requestId) {
-        return itemRequestMapper.toDto(itemRequestRepository.findById(requestId).orElseThrow(() -> new NotFoundException("Request with id=" + requestId + " not found")));
+        return itemRequestMapper.toDto(itemRequestRepository.findById(requestId).get());
     }
 }

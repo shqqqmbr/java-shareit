@@ -8,9 +8,6 @@ import ru.practicum.shareit.item.model.ItemDto;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * TODO Sprint add-item-requests.
- */
 @Getter
 @Setter
 public class ItemRequestDto {
