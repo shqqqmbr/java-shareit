@@ -55,6 +55,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingDto getBooking(int bookingId, String state, int ownerId) {
+        validateState(state);
         Booking booking = bookingRepository.findById(bookingId).get();
         if (booking.getItem().getOwner().getId() == ownerId || booking.getBooker().getId() == ownerId) {
             return bookingMapper.toDto(booking);
@@ -65,8 +66,20 @@ public class BookingServiceImpl implements BookingService {
     //    Здесь убрал идентичный метод, вся логика поиска находится в JPQL-запросе
     @Override
     public List<BookingDto> getAllUserBookings(String state, int ownerId) {
+        validateState(state);
         userRepository.findById(ownerId).get();
         AbstractBookingStrategy strategy = strategyPicker.pick(state);
         return strategy.findBookings(ownerId);
+    }
+
+    private void validateState(String state) {
+        if (state == null || state.isBlank()) {
+            throw new IllegalArgumentException("State cannot be null or empty");
+        }
+        try {
+            State.valueOf(state.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new BadRequestException("Unknown state: " + state);
+        }
     }
 }

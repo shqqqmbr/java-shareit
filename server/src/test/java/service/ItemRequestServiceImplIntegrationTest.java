@@ -1,9 +1,11 @@
-package ru.practicum.shareit.service;
+package service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+import ru.practicum.shareit.ShareItServer;
 import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.request.ItemRequestRepository;
 import ru.practicum.shareit.request.ItemRequestService;
@@ -20,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
+@ContextConfiguration(classes = {ShareItServer.class})
 class ItemRequestServiceImplIntegrationTest {
     @Autowired
     private ItemRequestService itemRequestService;
@@ -69,7 +72,6 @@ class ItemRequestServiceImplIntegrationTest {
         List<ItemRequestDto> user2Requests = itemRequestService.getAllItemRequests(savedUser2.getId());
         assertEquals(2, user1Requests.size());
         assertEquals(1, user2Requests.size());
-
         assertThat(user1Requests).extracting(ItemRequestDto::getId)
                 .containsExactlyInAnyOrder(savedRequest1.getId(), savedRequest2.getId());
         assertThat(user2Requests).extracting(ItemRequestDto::getId)

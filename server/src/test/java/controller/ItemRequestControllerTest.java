@@ -21,7 +21,8 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(ItemRequestController.class)
@@ -56,9 +57,9 @@ class ItemRequestControllerTest {
         createdDto.setCreated(LocalDateTime.now());
         when(itemRequestService.addItemRequest(any(ItemRequestDto.class), eq(userId))).thenReturn(createdDto);
         mockMvc.perform(post("/requests")
-                .header(HttpHeaders.SHARER_USER_ID, userId)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(inputDto)))
+                        .header(HttpHeaders.SHARER_USER_ID, userId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(inputDto)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.description").value("Need a drill"))
@@ -72,8 +73,8 @@ class ItemRequestControllerTest {
         ItemRequestDto inputDto = new ItemRequestDto();
         inputDto.setDescription("Need a drill");
         mockMvc.perform(post("/requests")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(inputDto)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(inputDto)))
                 .andExpect(status().isBadRequest());
         verify(itemRequestService, never()).addItemRequest(any(ItemRequestDto.class), anyInt());
     }
@@ -98,7 +99,7 @@ class ItemRequestControllerTest {
         List<ItemRequestDto> requests = List.of(request1, request2);
         when(itemRequestService.getAllItemRequests(userId)).thenReturn(requests);
         mockMvc.perform(get("/requests")
-                .header(HttpHeaders.SHARER_USER_ID, userId))
+                        .header(HttpHeaders.SHARER_USER_ID, userId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(2))
                 .andExpect(jsonPath("$[0].id").value(1))
@@ -203,9 +204,9 @@ class ItemRequestControllerTest {
         createdDto.setCreated(LocalDateTime.now());
         when(itemRequestService.addItemRequest(any(ItemRequestDto.class), eq(userId))).thenReturn(createdDto);
         mockMvc.perform(post("/requests")
-                .header(HttpHeaders.SHARER_USER_ID, userId)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(inputDto)))
+                        .header(HttpHeaders.SHARER_USER_ID, userId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(inputDto)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.description").value(""));
         verify(itemRequestService, times(1)).addItemRequest(any(ItemRequestDto.class), eq(userId));
