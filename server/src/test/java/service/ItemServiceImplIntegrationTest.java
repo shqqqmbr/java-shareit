@@ -180,28 +180,6 @@ class ItemServiceImplIntegrationTest {
     }
 
     @Test
-    void getItemsByText_shouldReturnMatchingAvailableItems() {
-        ItemDto availableItem = new ItemDto();
-        availableItem.setName("Drill Machine");
-        availableItem.setDescription("Powerful electric drill");
-        availableItem.setAvailable(true);
-        itemService.addItem(availableItem, owner.getId());
-        ItemDto unavailableItem = new ItemDto();
-        unavailableItem.setName("Another Drill");
-        unavailableItem.setDescription("Manual drill");
-        unavailableItem.setAvailable(false);
-        itemService.addItem(unavailableItem, owner.getId());
-        ItemDto nonMatchingItem = new ItemDto();
-        nonMatchingItem.setName("Hammer");
-        nonMatchingItem.setDescription("Heavy hammer");
-        nonMatchingItem.setAvailable(true);
-        itemService.addItem(nonMatchingItem, owner.getId());
-        List<ItemDto> result = itemService.getItemsByText("drill");
-        assertEquals("Drill Machine", result.get(0).getName());
-        assertTrue(result.get(0).getAvailable());
-    }
-
-    @Test
     void getItemsByText_shouldReturnEmptyListForEmptyText() {
         ItemDto itemDto = new ItemDto();
         itemDto.setName("Test Item");

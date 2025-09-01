@@ -2,6 +2,7 @@ package ru.practicum.shareit.item;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.shareit.HttpHeaders;
 import ru.practicum.shareit.item.model.CommentDto;
 import ru.practicum.shareit.item.model.ItemDto;
 
