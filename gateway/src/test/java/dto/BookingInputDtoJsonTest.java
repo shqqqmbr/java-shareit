@@ -91,7 +91,7 @@ class BookingInputDtoJsonTest {
     void testInvalidDateTimeFormat() {
         String invalidContent = "{" +
                 "\"itemId\": 456," +
-                "\"start\": \"2024-13-45T25:61:00\"," + // Неправильная дата
+                "\"start\": \"2024-13-45T25:61:00\"," +
                 "\"end\": \"2024-02-02T16:45:00\"" +
                 "}";
         assertThrows(JsonProcessingException.class, () -> {
