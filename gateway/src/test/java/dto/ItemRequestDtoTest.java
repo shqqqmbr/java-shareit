@@ -59,30 +59,28 @@ class ItemRequestDtoTest {
 
     @Test
     void testFullDeserialization() throws Exception {
-        String content = """
-                {
-                    "id": 150,
-                    "description": "Looking for gardening tools",
-                    "requestor": 600,
-                    "created": "2024-02-01T14:25:30",
-                    "items": [
-                        {
-                            "id": 10,
-                            "name": "Shovel",
-                            "description": "Garden shovel",
-                            "available": true,
-                            "owner": 600
-                        },
-                        {
-                            "id": 11,
-                            "name": "Rake",
-                            "description": "Leaf rake",
-                            "available": false,
-                            "owner": 700
-                        }
-                    ]
-                }
-                """;
+        String content = "{" +
+                "\"id\": 150," +
+                "\"description\": \"Looking for gardening tools\"," +
+                "\"requestor\": 600," +
+                "\"created\": \"2024-02-01T14:25:30\"," +
+                "\"items\": [" +
+                "{" +
+                "\"id\": 10," +
+                "\"name\": \"Shovel\"," +
+                "\"description\": \"Garden shovel\"," +
+                "\"available\": true," +
+                "\"owner\": 600" +
+                "}," +
+                "{" +
+                "\"id\": 11," +
+                "\"name\": \"Rake\"," +
+                "\"description\": \"Leaf rake\"," +
+                "\"available\": false," +
+                "\"owner\": 700" +
+                "}" +
+                "]" +
+                "}";
         ItemRequestDto requestDto = objectMapper.readValue(content, ItemRequestDto.class);
         assertThat(requestDto.getId()).isEqualTo(150);
         assertThat(requestDto.getDescription()).isEqualTo("Looking for gardening tools");
@@ -96,11 +94,9 @@ class ItemRequestDtoTest {
 
     @Test
     void testMinimalDeserialization() throws Exception {
-        String content = """
-                {
-                    "description": "Minimal request"
-                }
-                """;
+        String content = "{" +
+                "\"description\": \"Minimal request\"" +
+                "}";
         ItemRequestDto requestDto = objectMapper.readValue(content, ItemRequestDto.class);
         assertThat(requestDto.getDescription()).isEqualTo("Minimal request");
         assertThat(requestDto.getId()).isNull();
@@ -111,15 +107,13 @@ class ItemRequestDtoTest {
 
     @Test
     void testWithNullFields() throws Exception {
-        String content = """
-                {
-                    "description": "Test request",
-                    "id": null,
-                    "requestor": null,
-                    "created": null,
-                    "items": null
-                }
-                """;
+        String content = "{" +
+                "\"description\": \"Test request\"," +
+                "\"id\": null," +
+                "\"requestor\": null," +
+                "\"created\": null," +
+                "\"items\": null" +
+                "}";
         ItemRequestDto requestDto = objectMapper.readValue(content, ItemRequestDto.class);
         assertThat(requestDto.getDescription()).isEqualTo("Test request");
         assertThat(requestDto.getId()).isNull();
@@ -130,12 +124,10 @@ class ItemRequestDtoTest {
 
     @Test
     void testEmptyItemsArray() throws Exception {
-        String content = """
-                {
-                    "description": "Empty items request",
-                    "items": []
-                }
-                """;
+        String content = "{" +
+                "\"description\": \"Empty items request\"," +
+                "\"items\": []" +
+                "}";
         ItemRequestDto requestDto = objectMapper.readValue(content, ItemRequestDto.class);
         assertThat(requestDto.getDescription()).isEqualTo("Empty items request");
         assertThat(requestDto.getItems()).isNotNull();
@@ -144,14 +136,12 @@ class ItemRequestDtoTest {
 
     @Test
     void testWithoutItemsField() throws Exception {
-        String content = """
-                {
-                    "id": 200,
-                    "description": "Request without items field",
-                    "requestor": 800,
-                    "created": "2024-03-01T09:00:00"
-                }
-                """;
+        String content = "{" +
+                "\"id\": 200," +
+                "\"description\": \"Request without items field\"," +
+                "\"requestor\": 800," +
+                "\"created\": \"2024-03-01T09:00:00\"" +
+                "}";
         ItemRequestDto requestDto = objectMapper.readValue(content, ItemRequestDto.class);
         assertThat(requestDto.getId()).isEqualTo(200);
         assertThat(requestDto.getDescription()).isEqualTo("Request without items field");
@@ -162,24 +152,20 @@ class ItemRequestDtoTest {
 
     @Test
     void testDateTimePrecision() throws Exception {
-        String content = """
-                {
-                    "description": "Time precision test",
-                    "created": "2024-01-15T10:30:45.123"
-                }
-                """;
+        String content = "{" +
+                "\"description\": \"Time precision test\"," +
+                "\"created\": \"2024-01-15T10:30:45.123\"" +
+                "}";
         ItemRequestDto requestDto = objectMapper.readValue(content, ItemRequestDto.class);
         assertThat(requestDto.getCreated()).isEqualTo(LocalDateTime.of(2024, 1, 15, 10, 30, 45, 123000000));
     }
 
     @Test
     void testInvalidDateTimeFormat() {
-        String invalidContent = """
-                {
-                    "description": "Invalid date",
-                    "created": "2024-13-45T25:61:00"
-                }
-                """;
+        String invalidContent = "{" +
+                "\"description\": \"Invalid date\"," +
+                "\"created\": \"2024-13-45T25:61:00\"" +
+                "}";
         assertThrows(JsonProcessingException.class, () -> {
             objectMapper.readValue(invalidContent, ItemRequestDto.class);
         });
@@ -187,35 +173,33 @@ class ItemRequestDtoTest {
 
     @Test
     void testComplexNestedStructure() throws Exception {
-        String content = """
-                {
-                    "id": 300,
-                    "description": "Office equipment needed",
-                    "requestor": 900,
-                    "created": "2024-04-01T08:00:00",
-                    "items": [
-                        {
-                            "id": 20,
-                            "name": "Monitor",
-                            "description": "27 inch monitor",
-                            "available": true,
-                            "owner": 900,
-                            "lastBooking": {
-                                "id": 1,
-                                "itemId": 20,
-                                "start": "2024-03-15T10:00:00",
-                                "end": "2024-03-16T18:00:00"
-                            },
-                            "nextBooking": {
-                                "id": 2,
-                                "itemId": 20,
-                                "start": "2024-04-15T09:00:00",
-                                "end": "2024-04-16T17:00:00"
-                            }
-                        }
-                    ]
-                }
-                """;
+        String content = "{" +
+                "\"id\": 300," +
+                "\"description\": \"Office equipment needed\"," +
+                "\"requestor\": 900," +
+                "\"created\": \"2024-04-01T08:00:00\"," +
+                "\"items\": [" +
+                "{" +
+                "\"id\": 20," +
+                "\"name\": \"Monitor\"," +
+                "\"description\": \"27 inch monitor\"," +
+                "\"available\": true," +
+                "\"owner\": 900," +
+                "\"lastBooking\": {" +
+                "\"id\": 1," +
+                "\"itemId\": 20," +
+                "\"start\": \"2024-03-15T10:00:00\"," +
+                "\"end\": \"2024-03-16T18:00:00\"" +
+                "}," +
+                "\"nextBooking\": {" +
+                "\"id\": 2," +
+                "\"itemId\": 20," +
+                "\"start\": \"2024-04-15T09:00:00\"," +
+                "\"end\": \"2024-04-16T17:00:00\"" +
+                "}" +
+                "}" +
+                "]" +
+                "}";
         ItemRequestDto requestDto = objectMapper.readValue(content, ItemRequestDto.class);
         assertThat(requestDto.getItems()).hasSize(1);
         ItemDto item = requestDto.getItems().get(0);

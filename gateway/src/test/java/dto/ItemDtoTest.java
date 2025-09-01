@@ -69,36 +69,34 @@ class ItemDtoTest {
 
     @Test
     void testFullDeserialization() throws Exception {
-        String content = """
-                {
-                    "id": 150,
-                    "name": "Hammer",
-                    "description": "Heavy duty hammer",
-                    "available": false,
-                    "owner": 600,
-                    "lastBooking": {
-                        "id": 10,
-                        "itemId": 150,
-                        "start": "2024-03-01T10:00:00",
-                        "end": "2024-03-02T12:00:00"
-                    },
-                    "nextBooking": {
-                        "id": 11,
-                        "itemId": 150,
-                        "start": "2024-04-01T14:00:00",
-                        "end": "2024-04-02T16:00:00"
-                    },
-                    "comments": [
-                        {
-                            "id": 5,
-                            "text": "Good quality",
-                            "authorName": "Alice",
-                            "created": "2024-02-15T09:30:00"
-                        }
-                    ],
-                    "requestId": 400
-                }
-                """;
+        String content = "{" +
+                "\"id\": 150," +
+                "\"name\": \"Hammer\"," +
+                "\"description\": \"Heavy duty hammer\"," +
+                "\"available\": false," +
+                "\"owner\": 600," +
+                "\"lastBooking\": {" +
+                "\"id\": 10," +
+                "\"itemId\": 150," +
+                "\"start\": \"2024-03-01T10:00:00\"," +
+                "\"end\": \"2024-03-02T12:00:00\"" +
+                "}," +
+                "\"nextBooking\": {" +
+                "\"id\": 11," +
+                "\"itemId\": 150," +
+                "\"start\": \"2024-04-01T14:00:00\"," +
+                "\"end\": \"2024-04-02T16:00:00\"" +
+                "}," +
+                "\"comments\": [" +
+                "{" +
+                "\"id\": 5," +
+                "\"text\": \"Good quality\"," +
+                "\"authorName\": \"Alice\"," +
+                "\"created\": \"2024-02-15T09:30:00\"" +
+                "}" +
+                "]," +
+                "\"requestId\": 400" +
+                "}";
         ItemDto itemDto = objectMapper.readValue(content, ItemDto.class);
         assertThat(itemDto.getId()).isEqualTo(150);
         assertThat(itemDto.getName()).isEqualTo("Hammer");
@@ -118,13 +116,11 @@ class ItemDtoTest {
 
     @Test
     void testMinimalDeserialization() throws Exception {
-        String content = """
-                {
-                    "name": "Saw",
-                    "description": "Circular saw",
-                    "available": true
-                }
-                """;
+        String content = "{" +
+                "\"name\": \"Saw\"," +
+                "\"description\": \"Circular saw\"," +
+                "\"available\": true" +
+                "}";
         ItemDto itemDto = objectMapper.readValue(content, ItemDto.class);
         assertThat(itemDto.getName()).isEqualTo("Saw");
         assertThat(itemDto.getDescription()).isEqualTo("Circular saw");
@@ -139,18 +135,16 @@ class ItemDtoTest {
 
     @Test
     void testWithNullFields() throws Exception {
-        String content = """
-                {
-                    "name": "Test Item",
-                    "description": "Test Description",
-                    "available": true,
-                    "owner": null,
-                    "lastBooking": null,
-                    "nextBooking": null,
-                    "comments": null,
-                    "requestId": null
-                }
-                """;
+        String content = "{" +
+                "\"name\": \"Test Item\"," +
+                "\"description\": \"Test Description\"," +
+                "\"available\": true," +
+                "\"owner\": null," +
+                "\"lastBooking\": null," +
+                "\"nextBooking\": null," +
+                "\"comments\": null," +
+                "\"requestId\": null" +
+                "}";
         ItemDto itemDto = objectMapper.readValue(content, ItemDto.class);
         assertThat(itemDto.getName()).isEqualTo("Test Item");
         assertThat(itemDto.getDescription()).isEqualTo("Test Description");
@@ -164,14 +158,12 @@ class ItemDtoTest {
 
     @Test
     void testEmptyCommentsArray() throws Exception {
-        String content = """
-                {
-                    "name": "Item",
-                    "description": "Desc",
-                    "available": true,
-                    "comments": []
-                }
-                """;
+        String content = "{" +
+                "\"name\": \"Item\"," +
+                "\"description\": \"Desc\"," +
+                "\"available\": true," +
+                "\"comments\": []" +
+                "}";
         ItemDto itemDto = objectMapper.readValue(content, ItemDto.class);
         assertThat(itemDto.getComments()).isNotNull();
         assertThat(itemDto.getComments()).isEmpty();
@@ -179,12 +171,10 @@ class ItemDtoTest {
 
     @Test
     void testMissingRequiredFields() throws Exception {
-        String content = """
-                {
-                    "id": 200,
-                    "owner": 700
-                }
-                """;
+        String content = "{" +
+                "\"id\": 200," +
+                "\"owner\": 700" +
+                "}";
         ItemDto itemDto = objectMapper.readValue(content, ItemDto.class);
         assertThat(itemDto.getId()).isEqualTo(200);
         assertThat(itemDto.getOwner()).isEqualTo(700);
@@ -195,20 +185,16 @@ class ItemDtoTest {
 
     @Test
     void testBooleanAvailableField() throws Exception {
-        String contentTrue = """
-                {
-                    "name": "Item1",
-                    "description": "Desc1",
-                    "available": true
-                }
-                """;
-        String contentFalse = """
-                {
-                    "name": "Item2",
-                    "description": "Desc2",
-                    "available": false
-                }
-                """;
+        String contentTrue = "{" +
+                "\"name\": \"Item1\"," +
+                "\"description\": \"Desc1\"," +
+                "\"available\": true" +
+                "}";
+        String contentFalse = "{" +
+                "\"name\": \"Item2\"," +
+                "\"description\": \"Desc2\"," +
+                "\"available\": false" +
+                "}";
         ItemDto itemDto1 = objectMapper.readValue(contentTrue, ItemDto.class);
         ItemDto itemDto2 = objectMapper.readValue(contentFalse, ItemDto.class);
         assertThat(itemDto1.getAvailable()).isTrue();
@@ -217,30 +203,28 @@ class ItemDtoTest {
 
     @Test
     void testComplexNestedStructures() throws Exception {
-        String content = """
-                {
-                    "id": 300,
-                    "name": "Laptop",
-                    "description": "Gaming laptop",
-                    "available": true,
-                    "owner": 800,
-                    "comments": [
-                        {
-                            "id": 1,
-                            "text": "Fast performance",
-                            "authorName": "User1",
-                            "created": "2024-01-10T10:00:00"
-                        },
-                        {
-                            "id": 2,
-                            "text": "Good display",
-                            "authorName": "User2",
-                            "created": "2024-01-12T14:30:00"
-                        }
-                    ],
-                    "requestId": 500
-                }
-                """;
+        String content = "{" +
+                "\"id\": 300," +
+                "\"name\": \"Laptop\"," +
+                "\"description\": \"Gaming laptop\"," +
+                "\"available\": true," +
+                "\"owner\": 800," +
+                "\"comments\": [" +
+                "{" +
+                "\"id\": 1," +
+                "\"text\": \"Fast performance\"," +
+                "\"authorName\": \"User1\"," +
+                "\"created\": \"2024-01-10T10:00:00\"" +
+                "}," +
+                "{" +
+                "\"id\": 2," +
+                "\"text\": \"Good display\"," +
+                "\"authorName\": \"User2\"," +
+                "\"created\": \"2024-01-12T14:30:00\"" +
+                "}" +
+                "]," +
+                "\"requestId\": 500" +
+                "}";
         ItemDto itemDto = objectMapper.readValue(content, ItemDto.class);
         assertThat(itemDto.getComments()).hasSize(2);
         assertThat(itemDto.getComments().get(0).getText()).isEqualTo("Fast performance");

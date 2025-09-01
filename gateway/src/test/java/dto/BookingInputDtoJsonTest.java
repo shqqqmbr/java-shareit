@@ -48,14 +48,12 @@ class BookingInputDtoJsonTest {
 
     @Test
     void testDeserialization() throws Exception {
-        String content = """
-                {
-                    "id": 123,
-                    "itemId": 456,
-                    "start": "2024-02-01T14:30:00",
-                    "end": "2024-02-02T16:45:00"
-                }
-                """;
+        String content = "{" +
+                "\"id\": 123," +
+                "\"itemId\": 456," +
+                "\"start\": \"2024-02-01T14:30:00\"," +
+                "\"end\": \"2024-02-02T16:45:00\"" +
+                "}";
         BookingInputDto dto = json.parseObject(content);
         assertThat(dto.getId()).isEqualTo(123);
         assertThat(dto.getItemId()).isEqualTo(456);
@@ -65,12 +63,10 @@ class BookingInputDtoJsonTest {
 
     @Test
     void testDeserializationWithMissingFields() throws Exception {
-        String content = """
-                {
-                    "id": 123,
-                    "itemId": 456
-                }
-                """;
+        String content = "{" +
+                "\"id\": 123," +
+                "\"itemId\": 456" +
+                "}";
         BookingInputDto dto = json.parseObject(content);
         assertThat(dto.getId()).isEqualTo(123);
         assertThat(dto.getItemId()).isEqualTo(456);
@@ -80,14 +76,12 @@ class BookingInputDtoJsonTest {
 
     @Test
     void testDeserializationWithNullDates() throws Exception {
-        String content = """
-                {
-                    "id": 123,
-                    "itemId": 456,
-                    "start": null,
-                    "end": null
-                }
-                """;
+        String content = "{" +
+                "\"id\": 123," +
+                "\"itemId\": 456," +
+                "\"start\": null," +
+                "\"end\": null" +
+                "}";
         BookingInputDto dto = json.parseObject(content);
         assertThat(dto.getStart()).isNull();
         assertThat(dto.getEnd()).isNull();
@@ -95,13 +89,11 @@ class BookingInputDtoJsonTest {
 
     @Test
     void testInvalidDateTimeFormat() {
-        String invalidContent = """
-                {
-                    "itemId": 456,
-                    "start": "2024-13-45T25:61:00", // Неправильная дата
-                    "end": "2024-02-02T16:45:00"
-                }
-                """;
+        String invalidContent = "{" +
+                "\"itemId\": 456," +
+                "\"start\": \"2024-13-45T25:61:00\"," + // Неправильная дата
+                "\"end\": \"2024-02-02T16:45:00\"" +
+                "}";
         assertThrows(JsonProcessingException.class, () -> {
             json.parseObject(invalidContent);
         });
@@ -119,12 +111,10 @@ class BookingInputDtoJsonTest {
 
     @Test
     void testPartialData() throws Exception {
-        String content = """
-                {
-                    "itemId": 789,
-                    "start": "2024-03-01T10:00:00"
-                }
-                """;
+        String content = "{" +
+                "\"itemId\": 789," +
+                "\"start\": \"2024-03-01T10:00:00\"" +
+                "}";
         BookingInputDto dto = json.parseObject(content);
         assertThat(dto.getId()).isNull();
         assertThat(dto.getItemId()).isEqualTo(789);

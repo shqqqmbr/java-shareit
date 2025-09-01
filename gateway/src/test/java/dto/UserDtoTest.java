@@ -35,13 +35,11 @@ class UserDtoTest {
 
     @Test
     void testFullDeserialization() throws Exception {
-        String content = """
-                {
-                    "id": 123,
-                    "name": "Alice Smith",
-                    "email": "alice.smith@example.com"
-                }
-                """;
+        String content = "{" +
+                "\"id\": 123," +
+                "\"name\": \"Alice Smith\"," +
+                "\"email\": \"alice.smith@example.com\"" +
+                "}";
         UserDto userDto = objectMapper.readValue(content, UserDto.class);
         assertThat(userDto.getId()).isEqualTo(123);
         assertThat(userDto.getName()).isEqualTo("Alice Smith");
@@ -50,12 +48,10 @@ class UserDtoTest {
 
     @Test
     void testMinimalDeserialization() throws Exception {
-        String content = """
-                {
-                    "name": "Bob Johnson",
-                    "email": "bob.johnson@example.com"
-                }
-                """;
+        String content = "{" +
+                "\"name\": \"Bob Johnson\"," +
+                "\"email\": \"bob.johnson@example.com\"" +
+                "}";
         UserDto userDto = objectMapper.readValue(content, UserDto.class);
         assertThat(userDto.getName()).isEqualTo("Bob Johnson");
         assertThat(userDto.getEmail()).isEqualTo("bob.johnson@example.com");
@@ -64,13 +60,11 @@ class UserDtoTest {
 
     @Test
     void testWithNullFields() throws Exception {
-        String content = """
-                {
-                    "id": null,
-                    "name": "Test User",
-                    "email": "test@example.com"
-                }
-                """;
+        String content = "{" +
+                "\"id\": null," +
+                "\"name\": \"Test User\"," +
+                "\"email\": \"test@example.com\"" +
+                "}";
         UserDto userDto = objectMapper.readValue(content, UserDto.class);
         assertThat(userDto.getId()).isNull();
         assertThat(userDto.getName()).isEqualTo("Test User");
@@ -88,11 +82,9 @@ class UserDtoTest {
 
     @Test
     void testPartialData() throws Exception {
-        String content = """
-                {
-                    "name": "Partial User"
-                }
-                """;
+        String content = "{" +
+                "\"name\": \"Partial User\"" +
+                "}";
         UserDto userDto = objectMapper.readValue(content, UserDto.class);
         assertThat(userDto.getName()).isEqualTo("Partial User");
         assertThat(userDto.getId()).isNull();
@@ -101,24 +93,20 @@ class UserDtoTest {
 
     @Test
     void testEmailCaseInsensitive() throws Exception {
-        String content = """
-                {
-                    "name": "Email Test",
-                    "email": "TEST.USER@EXAMPLE.COM"
-                }
-                """;
+        String content = "{" +
+                "\"name\": \"Email Test\"," +
+                "\"email\": \"TEST.USER@EXAMPLE.COM\"" +
+                "}";
         UserDto userDto = objectMapper.readValue(content, UserDto.class);
         assertThat(userDto.getEmail()).isEqualTo("TEST.USER@EXAMPLE.COM");
     }
 
     @Test
     void testSpecialCharactersInName() throws Exception {
-        String content = """
-                {
-                    "name": "María José O'Connor-Smith",
-                    "email": "maria@example.com"
-                }
-                """;
+        String content = "{" +
+                "\"name\": \"María José O'Connor-Smith\"," +
+                "\"email\": \"maria@example.com\"" +
+                "}";
         UserDto userDto = objectMapper.readValue(content, UserDto.class);
         assertThat(userDto.getName()).isEqualTo("María José O'Connor-Smith");
         assertThat(userDto.getEmail()).isEqualTo("maria@example.com");
@@ -126,24 +114,20 @@ class UserDtoTest {
 
     @Test
     void testEmailWithPlusAddress() throws Exception {
-        String content = """
-                {
-                    "name": "Plus Test",
-                    "email": "user+tag@example.com"
-                }
-                """;
+        String content = "{" +
+                "\"name\": \"Plus Test\"," +
+                "\"email\": \"user+tag@example.com\"" +
+                "}";
         UserDto userDto = objectMapper.readValue(content, UserDto.class);
         assertThat(userDto.getEmail()).isEqualTo("user+tag@example.com");
     }
 
     @Test
     void testEmailWithSubdomain() throws Exception {
-        String content = """
-                {
-                    "name": "Subdomain Test",
-                    "email": "user@sub.domain.example.com"
-                }
-                """;
+        String content = "{" +
+                "\"name\": \"Subdomain Test\"," +
+                "\"email\": \"user@sub.domain.example.com\"" +
+                "}";
         UserDto userDto = objectMapper.readValue(content, UserDto.class);
         assertThat(userDto.getEmail()).isEqualTo("user@sub.domain.example.com");
     }
