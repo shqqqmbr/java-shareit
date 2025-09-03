@@ -1,20 +1,15 @@
 services:
-  postgres:
-    image: postgres:15
-    container_name: my_postgres
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: share_it_db
+  db:
+    image: postgres:16.1
+    container_name: postgres
     ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - "6541:5432"
+    environment:
+      - POSTGRES_PASSWORD=shareit
+      - POSTGRES_USER=shareit
+      - POSTGRES_DB=shareit
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -d share_it_db -U user" ]
-      interval: 5s
+      test: pg_isready -q -d $$POSTGRES_DB -U $$POSTGRES_USER
       timeout: 5s
-      retries: 5
-
-volumes:
-  postgres_data:
+      interval: 5s
+      retries: 10
